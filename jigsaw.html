@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jigsaw</title>
+    <style>
+        .list_item {
+            float: left;
+        }
+
+        img{
+            transition-duration: 300ms;
+        }
+
+        .img_choose_parent{
+            margin-left:10px;
+            margin-top:50px;
+            display:block;
+            line-height: 100px;
+            width:220px;
+            font-size:28px;
+            text-align: center;
+            float: left;
+        }
+
+        .img_choose_content{
+            display: none;
+        }
+
+        .img_choose_parent:hover .img_choose_content{
+            display: block;
+            width:220px;
+            height: 50px;
+            z-index: 10;
+        }
+
+        .img_choose_item{
+            width: 50px;
+            height: 50px;
+            display: block;
+            float: left;
+            margin-left: 2px;
+            border: #ffffff 1px solid;
+        }
+
+        .img_choose_active{
+            border: orange 1px solid;
+        }
+
+
+
+        .level_choose_content{
+            display: none;
+            margin: 0 auto;
+        }
+
+        .level_choose_parent{
+            display:block;
+            margin-top:50px;
+            line-height: 100px;
+            width:300px;
+            font-size:28px;
+            text-align: center;
+            float:right
+        }
+
+        .level_choose_parent:hover .level_choose_content{
+            display: block;
+            width:200px;
+            height: 50px;
+            z-index: 10;
+        }
+
+
+        .level_choose_item{
+            width: 20px;
+            height: 20px;
+            border-radius: 20px;
+            border: #666666 1px solid;
+            display: block;
+            float: left;
+            margin-top: 40px;
+            margin-left: 3px;
+        }
+
+        .level_choose_active{
+            background: #888888;
+            border-radius: 10px;
+            border: #cccccc 1px solid;
+        }
+
+        .img_level_choose_label{
+            background: #cccccc;
+            padding: 15px;
+            border-radius: 5px;
+        }
+        @media (max-width: 1200px) {
+            #item_content{
+                border:orange 5px solid;
+                width: 800px;
+                height: 800px;
+                margin: 0px auto;
+                margin-top:60px
+            }
+            .orign_img{
+                height: 300px;
+                width: 300px;
+                display: block;
+                margin: 100px auto 0;
+
+                border:orange 5px solid;
+            }
+        }
+        @media (min-width: 1200px) {
+            #item_content{
+                width: 800px;
+                height: 800px;
+                float: left;
+                border:orange 5px solid;
+                clear: both;
+            }
+            .orign_img{
+                float: left;
+                width: 300px;
+                height: 300px;
+                margin-top: 200px;
+                margin-left: 100px;
+                border:orange 5px solid;
+            }
+        }
+    </style>
+</head>
+<body>
+<div  id="item_content">
+    <!--<img onclick="onItemClick(this)" data-index=0 class="list_item" style="background-image: url('https://pic.52112.com/2019/06/06/JPS-190606_155/24poJOgl7m_small.jpg');background-position: 0px 0px"/>-->
+    <!--<img onclick="onItemClick(this)" data-index=1 class="list_item" style="background-image: url('https://pic.52112.com/2019/06/06/JPS-190606_155/24poJOgl7m_small.jpg');background-position: -200px 0px"/>-->
+    <!--<img onclick="onItemClick(this)" data-index=2 class="list_item" style="background-image: url('https://pic.52112.com/2019/06/06/JPS-190606_155/24poJOgl7m_small.jpg');background-position: -400px 0px"/>-->
+    <!--<img onclick="onItemClick(this)" data-index=3 class="list_item" style="background-image: url('https://pic.52112.com/2019/06/06/JPS-190606_155/24poJOgl7m_small.jpg');background-position: -600px 0px"/>-->
+    <!--<img onclick="onItemClick(this)" data-index=4 class="list_item" style="background-image: url('https://pic.52112.com/2019/06/06/JPS-190606_155/24poJOgl7m_small.jpg');background-position: 0px -200px"/>-->
+    <!--<img onclick="onItemClick(this)" data-index=5 class="list_item" style="background-image: url('https://pic.52112.com/2019/06/06/JPS-190606_155/24poJOgl7m_small.jpg');background-position: -200px -200px"/>-->
+    <!--<img onclick="onItemClick(this)" data-index=6 class="list_item" style="background-image: url('https://pic.52112.com/2019/06/06/JPS-190606_155/24poJOgl7m_small.jpg');background-position: -400px -200px"/>-->
+    <!--<img onclick="onItemClick(this)" data-index=7 class="list_item" style="background-image: url('https://pic.52112.com/2019/06/06/JPS-190606_155/24poJOgl7m_small.jpg');background-position: -600px -200px"/>-->
+    <!--<img onclick="onItemClick(this)" data-index=8 class="list_item" style="background-image: url('https://pic.52112.com/2019/06/06/JPS-190606_155/24poJOgl7m_small.jpg');background-position: -0px -400px"/>-->
+    <!--<img onclick="onItemClick(this)" data-index=9 class="list_item" style="background-image: url('https://pic.52112.com/2019/06/06/JPS-190606_155/24poJOgl7m_small.jpg');background-position: -200px -400px"/>-->
+    <!--<img onclick="onItemClick(this)" data-index=10 class="list_item" style="background-image: url('https://pic.52112.com/2019/06/06/JPS-190606_155/24poJOgl7m_small.jpg');background-position: -400px -400px"/>-->
+    <!--<img onclick="onItemClick(this)" data-index=11 class="list_item" style="background-image: url('https://pic.52112.com/2019/06/06/JPS-190606_155/24poJOgl7m_small.jpg');background-position: -600px -400px"/>-->
+
+    <!--<img onclick="onItemClick(this)" data-index=12 class="list_item" style="background-image: url('https://pic.52112.com/2019/06/06/JPS-190606_155/24poJOgl7m_small.jpg');background-position: -0px -600px"/>-->
+    <!--<img onclick="onItemClick(this)" data-index=13 class="list_item" style="background-image: url('https://pic.52112.com/2019/06/06/JPS-190606_155/24poJOgl7m_small.jpg');background-position: -200px -600px"/>-->
+    <!--<img onclick="onItemClick(this)" data-index=14 class="list_item" style="background-image: url('https://pic.52112.com/2019/06/06/JPS-190606_155/24poJOgl7m_small.jpg');background-position: -400px -600px"/>-->
+
+</div>
+
+<img id="small_img" class="orign_img" src="https://gw.alicdn.com/imgextra/i2/O1CN01McFLMd1tYCbfWnLUL_!!6000000005913-2-tps-800-800.png">
+
+
+<div style="height: 100px;margin: 10px">
+    <div class="img_choose_parent">
+        <span class="img_level_choose_label">切换图片</span>
+        <div class="img_choose_content">
+            <img onclick="changeImg(this)" data-index="1" class="img_choose_item img_choose_active" src="https://gw.alicdn.com/imgextra/i2/O1CN01i0RH6M1YeyWt6KE7m_!!6000000003085-0-tps-800-800.jpg">
+            <img onclick="changeImg(this)" data-index="2" class="img_choose_item" src="https://gw.alicdn.com/imgextra/i1/O1CN011GBqji2A3NQ0JILy2_!!6000000008147-2-tps-800-800.png">
+            <img onclick="changeImg(this)" data-index="3" class="img_choose_item" src="https://gw.alicdn.com/imgextra/i3/O1CN01kGiS6Q1VUx120wToY_!!6000000002657-2-tps-800-800.png">
+            <img onclick="changeImg(this)" data-index="4" class="img_choose_item" src="https://gw.alicdn.com/imgextra/i2/O1CN01McFLMd1tYCbfWnLUL_!!6000000005913-2-tps-800-800.png">
+        </div>
+    </div>
+
+    <div class="level_choose_parent">
+        <span class="img_level_choose_label">难度</span>
+        <div class="level_choose_content">
+            <span onclick="changeLevel(this)" data-index="1" style="float: left;font-size: 20px"><span class="level_choose_active level_choose_item"></span>低级</span>
+            <span onclick="changeLevel(this)" data-index="2" style="float: left;font-size: 20px"><span class="level_choose_item"></span>中级</span>
+            <span onclick="changeLevel(this)" data-index="3" style="float: left;font-size: 20px"><span class="level_choose_item"></span>高级</span>
+        </div>
+    </div>
+</div>
+<script>
+    var content = document.querySelector("#item_content");
+
+    var smallImgView = document.querySelector("#small_img");
+
+    var imgChooseContentView = document.querySelector(".img_choose_content");
+    var levelChooseContentView = document.querySelector(".level_choose_content");
+
+    /**每一行有几个*/
+    var rowSize = 4;
+
+    /**每个item的宽度*/
+    var itemWidth = 800/rowSize;
+    /**item数量*/
+    var itemSize = rowSize * rowSize - 1;
+
+    /**其实空白位置*/
+    var emptyPositionX = rowSize;
+    var emptyPositionY = rowSize;
+
+    var isPc = (!(/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent) || /(Android)/i.test(navigator.userAgent)));
+
+    var imgUrl = "https://gw.alicdn.com/imgextra/i2/O1CN01i0RH6M1YeyWt6KE7m_!!6000000003085-0-tps-800-800.jpg";
+
+    smallImgView.src = imgUrl;
+
+    var items = [
+        // {currentPositionX:1, currentPositionY:1, orignPositionX:1, orignPositionY:1,transformX:0, transformY:0, imgOffsetX:0, imgOffsetY:0},
+        // {currentPositionX:2, currentPositionY:1, orignPositionX:2, orignPositionY:1,transformX:0, transformY:0, imgOffsetX:-200, imgOffsetY:0},
+        // {currentPositionX:3, currentPositionY:1, orignPositionX:3, orignPositionY:1,transformX:0, transformY:0, imgOffsetX:-400, imgOffsetY:0},
+        // {currentPositionX:4, currentPositionY:1, orignPositionX:4, orignPositionY:1,transformX:0, transformY:0, imgOffsetX:-600, imgOffsetY:0},
+        // {currentPositionX:1, currentPositionY:2, orignPositionX:1, orignPositionY:2,transformX:0, transformY:0, imgOffsetX:0, imgOffsetY:-200},
+        // {currentPositionX:2, currentPositionY:2, orignPositionX:2, orignPositionY:2,transformX:0, transformY:0, imgOffsetX:-200, imgOffsetY:-200},
+        // {currentPositionX:3, currentPositionY:2, orignPositionX:3, orignPositionY:2,transformX:0, transformY:0, imgOffsetX:-400, imgOffsetY:-200},
+        // {currentPositionX:4, currentPositionY:2, orignPositionX:4, orignPositionY:2,transformX:0, transformY:0, imgOffsetX:-600, imgOffsetY:-200},
+        // {currentPositionX:1, currentPositionY:3, orignPositionX:1, orignPositionY:3,transformX:0, transformY:0, imgOffsetX:0, imgOffsetY:-400},
+        // {currentPositionX:2, currentPositionY:3, orignPositionX:2, orignPositionY:3,transformX:0, transformY:0, imgOffsetX:-200, imgOffsetY:-400},
+        // {currentPositionX:3, currentPositionY:3, orignPositionX:3, orignPositionY:3,transformX:0, transformY:0, imgOffsetX:-400, imgOffsetY:-400},
+        // {currentPositionX:4, currentPositionY:3, orignPositionX:4, orignPositionY:3,transformX:0, transformY:0, imgOffsetX:-600, imgOffsetY:-400},
+        // {currentPositionX:1, currentPositionY:4, orignPositionX:1, orignPositionY:4,transformX:0, transformY:0, imgOffsetX:0, imgOffsetY:-600},
+        // {currentPositionX:2, currentPositionY:4, orignPositionX:2, orignPositionY:4,transformX:0, transformY:0, imgOffsetX:-200, imgOffsetY:-600},
+    ];
+
+
+    function initItems(){
+        var contentStr = "";
+        var eventStr = "onclick";
+        if (!isPc) {
+            eventStr = "ontouchstart";
+        }
+        items = [];
+        for (var i =0;i<itemSize;++i) {
+            var positionX = i%rowSize + 1;
+            var positionY = Math.floor(i/rowSize) + 1;
+            var imgOffsetX = (positionX - 1) * (-itemWidth);
+            var imgOffsetY = (positionY - 1) * (-itemWidth);
+
+
+            var item = {};
+            item.currentPositionX = positionX;
+            item.orignPositionX = positionX;
+            item.currentPositionY = positionY;
+            item.orignPositionY = positionY;
+            item.imgOffsetX = imgOffsetX;
+            item.imgOffsetY = imgOffsetY;
+            item.transformX = 0;
+            item.transformY = 0;
+
+            items.push(item);
+
+
+            contentStr += "<img "+eventStr+"=\"onItemClick(this)\"  data-index="+i+" class=\"list_item\" style=\"width:"+itemWidth+"px;height:"+itemWidth+"px;background-image: url('"+imgUrl+"');background-position: "+item.imgOffsetX+"px "+item.imgOffsetY+"px\"/>\n"
+        }
+        content.innerHTML = contentStr;
+
+    }
+
+    initItems();
+
+
+    function onItemClick(e) {
+        var moved = false;
+        if ((parseInt(items[e.dataset.index].currentPositionX) + 1) === emptyPositionX && (parseInt((items[e.dataset.index].currentPositionY)) === emptyPositionY)) {
+            items[e.dataset.index].currentPositionX = emptyPositionX;
+            emptyPositionX-=1;
+            items[e.dataset.index].transformX = itemWidth * (items[e.dataset.index].currentPositionX - items[e.dataset.index].orignPositionX);
+
+            moved = true;
+        } else if ((parseInt(items[e.dataset.index].currentPositionX) - 1) === emptyPositionX && (parseInt((items[e.dataset.index].currentPositionY)) === emptyPositionY)) {
+            items[e.dataset.index].currentPositionX = emptyPositionX;
+            emptyPositionX+=1;
+            items[e.dataset.index].transformX = itemWidth * (items[e.dataset.index].currentPositionX - items[e.dataset.index].orignPositionX);
+
+            moved = true;
+        } else if (parseInt((items[e.dataset.index].currentPositionY) + 1) === emptyPositionY && (parseInt((items[e.dataset.index].currentPositionX)) === emptyPositionX)) {
+            items[e.dataset.index].currentPositionY = emptyPositionY;
+            emptyPositionY-=1;
+
+            items[e.dataset.index].transformY = itemWidth * (items[e.dataset.index].currentPositionY - items[e.dataset.index].orignPositionY);
+
+            moved = true;
+        } else if ((parseInt(items[e.dataset.index].currentPositionY) - 1) === emptyPositionY && (parseInt((items[e.dataset.index].currentPositionX)) === emptyPositionX)) {
+            items[e.dataset.index].currentPositionY = emptyPositionY;
+            emptyPositionY+=1;
+
+            items[e.dataset.index].transformY = itemWidth * (items[e.dataset.index].currentPositionY - items[e.dataset.index].orignPositionY);
+
+            moved = true;
+        }
+        e.style.transform = "translate("+items[e.dataset.index].transformX+"px,"+ items[e.dataset.index].transformY +"px)";
+
+
+
+        if (moved) {
+            /**先执行动画在判断是否拼成功*/
+            setTimeout(function () {
+                var suc = true;
+                for (var i =0;i<items.length;++i) {
+                    if (items[i].orignPositionX !== items[i].currentPositionX || items[i].orignPositionY !== items[i].currentPositionY) {
+                        suc = false;
+                        break
+                    }
+                }
+                if (suc) {
+                    alert("you have success");
+                }
+            },300)
+        }
+    }
+
+    function changeImg(e) {
+        var tempUrl = "";
+        switch (e.dataset.index) {
+            case "1":
+                tempUrl = "https://gw.alicdn.com/imgextra/i2/O1CN01i0RH6M1YeyWt6KE7m_!!6000000003085-0-tps-800-800.jpg";
+                break;
+            case "2":
+                tempUrl = "https://gw.alicdn.com/imgextra/i1/O1CN011GBqji2A3NQ0JILy2_!!6000000008147-2-tps-800-800.png";
+                break;
+            case "3":
+                tempUrl = "https://gw.alicdn.com/imgextra/i3/O1CN01kGiS6Q1VUx120wToY_!!6000000002657-2-tps-800-800.png";
+                break;
+            case "4":
+                tempUrl = "https://gw.alicdn.com/imgextra/i2/O1CN01McFLMd1tYCbfWnLUL_!!6000000005913-2-tps-800-800.png";
+                break
+        }
+
+        if (imgUrl === tempUrl) {
+            return
+        }
+
+        imgUrl = tempUrl;
+        for (var i = 0; i < imgChooseContentView.childNodes.length; ++i) {
+            if (imgChooseContentView.childNodes[i].nodeType === 1)
+                imgChooseContentView.childNodes[i].classList.remove("img_choose_active");
+        }
+
+        e.classList.add("img_choose_active");
+
+        smallImgView.src = imgUrl;
+
+        initItems();
+
+        randomImg();
+    }
+
+    function changeLevel(e) {
+        var tempRowSize = 0;
+        switch (e.dataset.index) {
+            case "1":
+                tempRowSize = 4;
+                break;
+            case "2":
+                tempRowSize = 6;
+                break;
+            case "3":
+                tempRowSize = 8;
+                break;
+        }
+
+        if (rowSize === tempRowSize) {
+            return
+        }
+
+        for (var i = 0; i < levelChooseContentView.childNodes.length; ++i) {
+            if (levelChooseContentView.childNodes[i].nodeType === 1) {
+                levelChooseContentView.childNodes[i].childNodes[0].classList.remove("level_choose_active");
+            }
+        }
+
+        e.childNodes[0].classList.add("level_choose_active");
+
+        rowSize = tempRowSize;
+        emptyPositionX = rowSize;
+        emptyPositionY = rowSize;
+        itemWidth = 800/rowSize;
+        itemSize = rowSize * rowSize - 1;
+        initItems();
+
+        randomImg();
+    }
+
+    var randomNext = [1, -1];
+
+    /**打乱图片顺序*/
+    function randomImg() {
+        if (items.length === 0) {
+            return
+        }
+        var xOrY = 1;
+
+        var elements = content.getElementsByTagName("img");
+        //随机走50步
+        for (var i = 0; i < 100; ++i) {
+            xOrY = Math.floor(Math.random()*1000%2);
+            var step = Math.floor(Math.random()*1000%2);
+            if (xOrY === 1) {//走x方向
+                if (emptyPositionX + randomNext[step] <= 0 || emptyPositionX + randomNext[step] >= rowSize) {
+                    continue
+                }
+                onItemClick(elements[(emptyPositionX + randomNext[step] + (emptyPositionY - 1)*rowSize) - 1])
+
+            } else {
+                if (emptyPositionY + randomNext[step] <= 0 || emptyPositionY + randomNext[step] >= rowSize) {
+                    continue
+                }
+
+                onItemClick(elements[(emptyPositionX + (emptyPositionY - 1 + randomNext[step])*rowSize) - 1])
+            }
+        }
+    }
+
+    randomImg();
+
+    //判断是哪种客户端
+    // if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent)) {
+    //
+    //     alert("iPhone" + navigator.userAgent); 
+    //
+    //     // window.location.href ="iPhone.html";
+    //
+    // } else if (/(Android)/i.test(navigator.userAgent)) {
+    //
+    //     alert("Android" + navigator.userAgent);
+    //
+    //     // window.location.href ="Android.html";
+    //
+    // } else {
+    //     alert(" else " + navigator.userAgent);
+    //     // window.location.href ="pc.html";
+    //
+    // };
+
+</script>
+</body>
+</html>
