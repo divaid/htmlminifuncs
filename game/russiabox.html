@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--TODO 添加暂停功能-->
+    <!--<meta name="viewport"-->
+          <!--content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>-->
+
+
+    <meta charset="UTF-8">
+    <title>russiabox</title>
+
+    <style>
+        #myCanvas {
+            background-color: #cccccc;
+            float: left;
+        }
+        @media (min-width: 1200px) {
+            #removedLinesCount{
+                margin-left: 10px;
+                padding-left: 30px;
+                margin-top: 20px;
+                float: left;
+            }
+
+            .rotate_btn {
+                display: none;
+            }
+
+            .move_left_btn {
+                display: none;
+            }
+
+            .move_right_btn {
+                display: none;
+            }
+        }
+
+        @media (max-width: 1200px) {
+
+            #removedLinesCount{
+                height: 800px;
+                width: 20px;
+                margin-left: 450px;
+                margin-top: 20px;
+                padding-left: 30px;
+                padding-top: 20px;
+                font-size: 30px;
+            }
+
+            .rotate_btn {
+                float: left;
+                width: 100px;
+                height: 100px;
+                line-height: 100px;
+                background-color: #ff00ff;
+                border-radius: 100px;
+                text-align: center;
+                margin-left: 50px;
+                color: white;
+                margin-top: 50px;
+            }
+
+            .move_left_btn {
+                float: right;
+                width: 80px;
+                height: 80px;
+                line-height: 80px;
+                background-color: #ff00ff;
+                border-radius: 100px;
+                text-align: center;
+                margin-right: 30px;
+                color: white;
+                margin-top: 50px;
+
+            }
+
+            .move_right_btn {
+                float: right;
+                width: 80px;
+                height: 80px;
+                line-height: 80px;
+                background-color: #ff00ff;
+                border-radius: 100px;
+                text-align: center;
+                margin-right: 30px;
+                color: white;
+                margin-top: 50px;
+
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+<canvas width="400px" height="800px" id="myCanvas"></canvas>
+
+<div id="removedLinesCount">
+
+</div>
+
+
+<div class="rotate_btn" onclick="rotate()" style="">
+    旋转
+</div>
+
+<div class="move_right_btn" onclick="moveRight()">
+    右
+</div>
+
+
+<div class="move_right_btn" onclick="fallDownFast()">
+    下落
+</div>
+
+<div class="move_left_btn" onclick="moveLeft()">
+    左
+</div>
+
+
+<script>
+    var removedLineCount = 0;
+    var countView = document.querySelector("#removedLinesCount");
+
+    countView.innerHTML = removedLineCount.toString();
+
+    var c = document.getElementById("myCanvas");
+    var ctx = c.getContext("2d");
+
+    ctx.fillStyle = "#000000";
+
+    // ctx.clearRect(80, 720, 40, 40);
+
+
+    var boxSpeed = 1000;//下落速度
+    var fastSpeed = 50;//快速下落速度
+
+    //canvas划分一个个格子，一个box相当于一个格子：10*20,从{0,0}到{9，19}
+
+    //type:0柺，1方块，2条，3，叉
+    var currentBox = {
+        type: 0,
+        rotateIndex: 2,
+        boxs: [{positionX: 3, positionY: 0, clearTop: true}, {positionX: 4, positionY: 0, clearTop: true},
+            {positionX: 5, positionY: 0, clearTop: true}, {positionX: 5, positionY: 1, clearTop: false}]
+    };//{type:0,boxs:[{positionX:0,positionY:0}]}
+    var remainBox = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]];
+
+
+    function clearOrign() {
+        for (var i = 0; i < 4; ++i) {
+            // if (currentBox.boxs[i].positionY >= 0 || remainBox[currentBox.boxs[i].positionY][currentBox.boxs[i].positionX]!==1){
+            ctx.clearRect(currentBox.boxs[i].positionX * 40, (currentBox.boxs[i].positionY) * 40, 40, 40);
+            // }
+        }
+    }
+
+    function drawBox() {
+        for (var i = 0; i < 4; ++i) {
+            // drawBox(currentBox.boxs[i].positionX, currentBox.boxs[i].positionY);
+            ctx.fillRect(currentBox.boxs[i].positionX * 40, currentBox.boxs[i].positionY * 40, 38, 38);
+        }
+    }
+
+    /**方块下落*/
+    function fallDownItem() {
+        clearOrign();
+
+        for (var i = 0; i < 4; ++i) {
+            currentBox.boxs[i].positionY += 1;
+        }
+        drawBox();
+
+        var falled = checkFallDown();
+
+        if (falled) {
+            resetCurrent();
+            drawBox();
+        }
+    }
+
+    function resetCurrent() {
+        if (boxSpeed === fastSpeed) {
+            boxSpeed = 1000;
+            startGame();
+        }
+
+        var random = Math.floor(Math.random() * 1000 % 7);
+        switch (random) {
+            case 0:
+                currentBox = {
+                    type: 0,
+                    rotateIndex: 2,
+                    boxs: [{positionX: 3, positionY: 0, clearTop: true}, {positionX: 4, positionY: 0, clearTop: true},
+                        {positionX: 5, positionY: 0, clearTop: true}, {positionX: 5, positionY: 1, clearTop: false}]
+                };
+                break;
+            case 1:
+                currentBox = {
+                    type: 1,
+                    rotateIndex: 1,
+                    boxs: [{positionX: 4, positionY: 0, clearTop: true}, {positionX: 5, positionY: 0, clearTop: true},
+                        {positionX: 4, positionY: 1, clearTop: true}, {positionX: 5, positionY: 1, clearTop: false}]
+                };
+                break;
+            case 2:
+                currentBox = {
+                    type: 2,
+                    rotateIndex: 1,
+                    boxs: [{positionX: 3, positionY: 0, clearTop: true}, {positionX: 4, positionY: 0, clearTop: true},
+                        {positionX: 5, positionY: 0, clearTop: true}, {positionX: 6, positionY: 0, clearTop: false}]
+                };
+                break;
+            case 3:
+                currentBox = {
+                    type: 3,
+                    rotateIndex: 1,
+                    boxs: [{positionX: 3, positionY: 1, clearTop: true}, {positionX: 4, positionY: 1, clearTop: true},
+                        {positionX: 5, positionY: 1, clearTop: true}, {positionX: 4, positionY: 0, clearTop: false}]
+                };
+                break;
+            case 4:
+                currentBox = {
+                    type: 4,
+                    rotateIndex: 1,
+                    boxs: [{positionX: 3, positionY: 1, clearTop: true}, {positionX: 4, positionY: 1, clearTop: true},
+                        {positionX: 4, positionY: 0, clearTop: true}, {positionX: 5, positionY: 0, clearTop: false}]
+                };
+                break;
+            case 5:
+                currentBox = {
+                    type: 4,
+                    rotateIndex: 1,
+                    boxs: [{positionX: 3, positionY: 0, clearTop: true}, {positionX: 4, positionY: 0, clearTop: true},
+                        {positionX: 4, positionY: 1, clearTop: true}, {positionX: 5, positionY: 1, clearTop: false}]
+                };
+                break;
+            case 6:
+                currentBox = {
+                    type: 4,
+                    rotateIndex: 1,
+                    boxs: [{positionX: 3, positionY: 0, clearTop: true}, {positionX: 4, positionY: 0, clearTop: true},
+                        {positionX: 5, positionY: 0, clearTop: true}, {positionX: 3, positionY: 1, clearTop: false}]
+                };
+                break;
+        }
+    }
+
+    /**检测是否下落,返回是否落下*/
+    function checkFallDown() {
+        for (var i = 0; i < 4; ++i) {
+            if (currentBox.boxs[i].positionY === 19) {
+                remainBox[currentBox.boxs[0].positionY][currentBox.boxs[0].positionX] = 1;
+                remainBox[currentBox.boxs[1].positionY][currentBox.boxs[1].positionX] = 1;
+                remainBox[currentBox.boxs[2].positionY][currentBox.boxs[2].positionX] = 1;
+                remainBox[currentBox.boxs[3].positionY][currentBox.boxs[3].positionX] = 1;
+                checkRemoveYLine();
+                return true;
+            }
+        }
+
+        for (i = 0; i < remainBox.length; ++i) {
+            if (remainBox[currentBox.boxs[0].positionY + 1][currentBox.boxs[0].positionX] === 1 ||
+                remainBox[currentBox.boxs[1].positionY + 1][currentBox.boxs[1].positionX] === 1 ||
+                remainBox[currentBox.boxs[2].positionY + 1][currentBox.boxs[2].positionX] === 1 ||
+                remainBox[currentBox.boxs[3].positionY + 1][currentBox.boxs[3].positionX] === 1) {
+                if (currentBox.boxs[0].positionY === 0 ||
+                    currentBox.boxs[1].positionY === 0 ||
+                    currentBox.boxs[2].positionY === 0 ||
+                    currentBox.boxs[3].positionY === 0) {
+                    drawBox();
+                    clearInterval(interval);
+                    alert("game over");
+                    return true;
+                }
+                remainBox[currentBox.boxs[0].positionY][currentBox.boxs[0].positionX] = 1;
+                remainBox[currentBox.boxs[1].positionY][currentBox.boxs[1].positionX] = 1;
+                remainBox[currentBox.boxs[2].positionY][currentBox.boxs[2].positionX] = 1;
+                remainBox[currentBox.boxs[3].positionY][currentBox.boxs[3].positionX] = 1;
+
+
+                checkRemoveYLine();
+                return true
+            }
+        }
+        return false;
+    }
+
+    function checkRemoveYLine() {
+        var removed = false;
+        var lineFull = true;
+        var shouldRemoveLines = [];
+        for (var i = 0; i < 4; ++i) {
+            lineFull = true;
+            inner:
+                for (var j = 0; j < 10; ++j) {
+                    if (remainBox[currentBox.boxs[i].positionY][j] !== 1) {
+                        lineFull = false;
+                        break inner;
+                    }
+                }
+
+            if (lineFull) {
+                removed = true;
+                if (shouldRemoveLines.indexOf(currentBox.boxs[i].positionY === -1)) {
+                    shouldRemoveLines.push(currentBox.boxs[i].positionY);
+                    for (j = 0; j < 10; ++j) {
+                        remainBox[currentBox.boxs[i].positionY][j] = 0;
+                    }
+                }
+            }
+        }
+
+
+        shouldRemoveLines.sort();
+
+        for (i = 0; i < shouldRemoveLines.length; ++i) {
+            var lines = remainBox.splice(shouldRemoveLines[i], 1);
+            remainBox.unshift(lines);
+        }
+
+        if (removed) {
+            ctx.clearRect(0, 0, 400, 800);
+            for (i = 0; i < 10; ++i) {
+                for (j = 0; j < 20; ++j) {
+                    if (remainBox[j][i] === 1) {
+                        ctx.fillRect(i * 40, j * 40, 38, 38);
+                    }
+                }
+            }
+        }
+
+        removedLineCount += shouldRemoveLines.length;
+        countView.innerHTML = removedLineCount.toString();
+    }
+
+    var interval;
+
+    function startGame() {
+        // drawBox();
+        clearInterval(interval);
+        interval = setInterval(function () {
+            fallDownItem();
+        }, boxSpeed)
+    }
+
+    startGame();
+
+
+    function rotate() {
+        if (currentBox.type === 1) {
+            return
+        }
+
+        var indexX = currentBox.boxs[currentBox.rotateIndex].positionX;
+        var indexY = currentBox.boxs[currentBox.rotateIndex].positionY;
+
+        if (
+            ((indexY - currentBox.boxs[0].positionY + indexX) < 0 || (indexY - currentBox.boxs[0].positionY + indexX) > 9)
+            || ((indexY - currentBox.boxs[1].positionY + indexX) < 0 || (indexY - currentBox.boxs[1].positionY + indexX) > 9)
+            || ((indexY - currentBox.boxs[2].positionY + indexX) < 0 || (indexY - currentBox.boxs[2].positionY + indexX) > 9)
+            || ((indexY - currentBox.boxs[3].positionY + indexX) < 0 || (indexY - currentBox.boxs[3].positionY + indexX) > 9)
+            || (remainBox[currentBox.boxs[0].positionY][indexY - currentBox.boxs[0].positionY + indexX] === 1)
+            || (remainBox[currentBox.boxs[1].positionY][indexY - currentBox.boxs[1].positionY + indexX] === 1)
+            || (remainBox[currentBox.boxs[2].positionY][indexY - currentBox.boxs[2].positionY + indexX] === 1)
+            || (remainBox[currentBox.boxs[3].positionY][indexY - currentBox.boxs[3].positionY + indexX] === 1)
+        ) {
+            return;
+        }
+
+        clearOrign();
+
+
+        var orignX = 0;
+        var orignY = 0;
+
+        for (i = 0; i < 4; ++i) {
+            orignX = currentBox.boxs[i].positionX;
+            orignY = currentBox.boxs[i].positionY;
+            currentBox.boxs[i].positionY = orignX - indexX + indexY;
+            currentBox.boxs[i].positionX = indexY - orignY + indexX;
+        }
+        drawBox();
+    }
+
+    function moveLeft() {
+        if (currentBox.boxs[0].positionX > 0
+            && currentBox.boxs[1].positionX > 0
+            && currentBox.boxs[2].positionX > 0
+            && currentBox.boxs[3].positionX > 0
+            && remainBox[currentBox.boxs[0].positionY][currentBox.boxs[0].positionX - 1] !== 1
+            && remainBox[currentBox.boxs[0].positionY][currentBox.boxs[1].positionX - 1] !== 1
+            && remainBox[currentBox.boxs[0].positionY][currentBox.boxs[2].positionX - 1] !== 1
+            && remainBox[currentBox.boxs[0].positionY][currentBox.boxs[3].positionX - 1] !== 1
+        ) {
+
+            clearOrign();
+            currentBox.boxs[0].positionX -= 1;
+            currentBox.boxs[1].positionX -= 1;
+            currentBox.boxs[2].positionX -= 1;
+            currentBox.boxs[3].positionX -= 1;
+
+            drawBox();
+        }
+    }
+
+    function moveRight() {
+        if (currentBox.boxs[0].positionX < 9
+            && currentBox.boxs[1].positionX < 9
+            && currentBox.boxs[2].positionX < 9
+            && currentBox.boxs[3].positionX < 9
+            && remainBox[currentBox.boxs[0].positionY][currentBox.boxs[0].positionX + 1] !== 1
+            && remainBox[currentBox.boxs[0].positionY][currentBox.boxs[1].positionX + 1] !== 1
+            && remainBox[currentBox.boxs[0].positionY][currentBox.boxs[2].positionX + 1] !== 1
+            && remainBox[currentBox.boxs[0].positionY][currentBox.boxs[3].positionX + 1] !== 1
+        ) {
+            clearOrign();
+
+            currentBox.boxs[0].positionX += 1;
+            currentBox.boxs[1].positionX += 1;
+            currentBox.boxs[2].positionX += 1;
+            currentBox.boxs[3].positionX += 1;
+
+            drawBox();
+        }
+    }
+
+    function fallDownFast(){
+        boxSpeed = fastSpeed;
+        startGame();
+    }
+
+
+    window.onunload = function (ev) {
+        clearInterval(interval)
+    };
+    window.onkeydown = function (ev) {
+        switch (ev.code) {
+            case "ArrowLeft":
+                moveLeft();
+                break;
+            case "ArrowUp":
+                rotate();
+                break;
+            case "ArrowRight":
+                moveRight();
+                break;
+            case "ArrowDown":
+                fallDonwFast();
+                break;
+        }
+    }
+</script>
+</body>
+</html>
