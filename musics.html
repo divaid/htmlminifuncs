@@ -1,0 +1,129 @@
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/request.js"></script>
+
+    <style>
+        .active{
+            color: green;
+        }
+        audio{
+            width: 90%;
+            margin-left: 5%;
+            position: absolute;
+            bottom: 10px;
+        }
+        #music_list{
+            width: 90%;
+            padding-bottom: 10px;
+            height: 95%;
+            overflow: scroll
+        }
+
+        li{
+            padding-top: 25px;
+        }
+    </style>
+</head>
+<body bgcolor="#FFFFFF" style="height:90%">
+<ol id="music_list"></ol>
+
+
+<audio height="100px" autoplay controls id="audio_view"></audio>
+<script>
+    const audioView = document.querySelector("#audio_view");
+    const musicListView = document.querySelector("#music_list");
+    let musicList = [];
+
+    let currentPosition = 0;
+
+    function play(e) {
+        playCurrent(e.dataset.position)
+    }
+
+
+    function parseResult(result) {
+        var json = JSON.parse(result);
+        musicList = json;
+        var string = "";
+        for (var i = 0;i<json.length; ++i) {
+            string += "<li src=\""+json[i].url ;
+            string += "\" onclick=\"play(this)\" data-position="+i+">"+json[i].name+"<\/li>";
+        }
+        musicListView.innerHTML = string;
+
+
+        audioView.src = musicList[0].url;
+        musicListView.childNodes[0].classList.add("active")
+    }
+
+    function loadXMLDoc()
+    {
+        getRequest("/file/musicsJson", "", function (result) {
+            parseResult(result)
+        }, function (errorMsg) {
+            musicListView.innerHTML = errorMsg;
+        });
+    }
+
+    // loadXMLDoc();//加载远程数据
+
+    // 本地测试数据
+    parseResult("[{\"url\":\"./musics/菊次郎的夏天.mp3\",\"type\":\"music\",\"name\":\"菊次郎的夏天.mp3\"}," +
+    "{\"url\":\"./musics/故宫的记忆.mp3\",\"type\":\"music\",\"name\":\"故宫的记忆.mp3\"}," +
+    "{\"url\":\"./musics/秋天里的深蓝.mp3\",\"type\":\"music\",\"name\":\"秋天里的深蓝.mp3\"}," +
+    "{\"url\":\"./musics/俞灏明-爱的华尔兹.mp3\",\"type\":\"music\",\"name\":\"俞灏明-爱的华尔兹.mp3\"}," +
+    "{\"url\":\"./musics/SongTaste-月下独酌.mp3\",\"type\":\"music\",\"name\":\"SongTaste-月下独酌.mp3\"}," +
+    "{\"url\":\"./musics/梅雨西子-夜明.mp3\",\"type\":\"music\",\"name\":\"梅雨西子-夜明.mp3\"}" +
+        "]");
+
+
+    let playTimeOut;
+
+    function playCurrent(position) {
+        if (currentPosition === position) {
+            console.log("return position:" + currentPosition);
+            return
+        }
+
+        clearTimeout(playTimeOut);
+
+        console.log("play:" + musicList[position].url);
+
+        audioView.src = musicList[position].url;
+
+        setTimeout(function () {
+            console.log("time is " + audioView.duration);
+            playTimeOut = setTimeout(function () {
+                playNext()
+            }, audioView.duration * 1000)
+        }, 500);
+
+        musicListView.childNodes[currentPosition].classList.remove("active");
+        currentPosition = parseInt(position);
+        musicListView.childNodes[currentPosition].classList.add("active");
+    }
+
+    function playNext() {
+        if (musicList.length <= (currentPosition + 1)) {
+            playCurrent(0)
+        } else
+            playCurrent(currentPosition + 1)
+    }
+
+    function seekListener() {
+        clearTimeout(playTimeOut);
+
+        playTimeOut = setTimeout(function () {
+            playNext()
+        }, (audioView.duration - audioView.currentTime) * 1000);
+
+        console.log("seeked time " + (audioView.duration - audioView.currentTime));
+
+    }
+
+    audioView.addEventListener("seeking", seekListener);
+</script>
+</body>
+</html>
