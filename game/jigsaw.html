@@ -175,12 +175,12 @@
     </div>
 </div>
 <script>
-    var content = document.querySelector("#item_content");
+    const content = document.querySelector("#item_content");
 
-    var smallImgView = document.querySelector("#small_img");
+    const smallImgView = document.querySelector("#small_img");
 
-    var imgChooseContentView = document.querySelector(".img_choose_content");
-    var levelChooseContentView = document.querySelector(".level_choose_content");
+    const imgChooseContentView = document.querySelector(".img_choose_content");
+    const levelChooseContentView = document.querySelector(".level_choose_content");
 
     /**每一行有几个*/
     var rowSize = 4;
@@ -219,20 +219,20 @@
 
 
     function initItems(){
-        var contentStr = "";
-        var eventStr = "onclick";
+        let contentStr = "";
+        let eventStr = "onclick";
         if (!isPc) {
             eventStr = "ontouchstart";
         }
         items = [];
-        for (var i =0;i<itemSize;++i) {
-            var positionX = i%rowSize + 1;
-            var positionY = Math.floor(i/rowSize) + 1;
-            var imgOffsetX = (positionX - 1) * (-itemWidth);
-            var imgOffsetY = (positionY - 1) * (-itemWidth);
+        for (let i =0; i<itemSize; ++i) {
+            const positionX = i % rowSize + 1;
+            const positionY = Math.floor(i / rowSize) + 1;
+            const imgOffsetX = (positionX - 1) * (-itemWidth);
+            const imgOffsetY = (positionY - 1) * (-itemWidth);
 
 
-            var item = {};
+            const item = {};
             item.currentPositionX = positionX;
             item.orignPositionX = positionX;
             item.currentPositionY = positionY;
@@ -249,13 +249,15 @@
         }
         content.innerHTML = contentStr;
 
+        emptyPositionX = rowSize;
+        emptyPositionY = rowSize;
     }
 
     initItems();
 
 
     function onItemClick(e) {
-        var moved = false;
+        let moved = false;
         if ((parseInt(items[e.dataset.index].currentPositionX) + 1) === emptyPositionX && (parseInt((items[e.dataset.index].currentPositionY)) === emptyPositionY)) {
             items[e.dataset.index].currentPositionX = emptyPositionX;
             emptyPositionX-=1;
@@ -305,7 +307,7 @@
     }
 
     function changeImg(e) {
-        var tempUrl = "";
+        let tempUrl = "";
         switch (e.dataset.index) {
             case "1":
                 tempUrl = "https://gw.alicdn.com/imgextra/i2/O1CN01i0RH6M1YeyWt6KE7m_!!6000000003085-0-tps-800-800.jpg";
@@ -326,7 +328,7 @@
         }
 
         imgUrl = tempUrl;
-        for (var i = 0; i < imgChooseContentView.childNodes.length; ++i) {
+        for (let i = 0; i < imgChooseContentView.childNodes.length; ++i) {
             if (imgChooseContentView.childNodes[i].nodeType === 1)
                 imgChooseContentView.childNodes[i].classList.remove("img_choose_active");
         }
@@ -341,7 +343,7 @@
     }
 
     function changeLevel(e) {
-        var tempRowSize = 0;
+        let tempRowSize = 0;
         switch (e.dataset.index) {
             case "1":
                 tempRowSize = 4;
@@ -358,7 +360,7 @@
             return
         }
 
-        for (var i = 0; i < levelChooseContentView.childNodes.length; ++i) {
+        for (let i = 0; i < levelChooseContentView.childNodes.length; ++i) {
             if (levelChooseContentView.childNodes[i].nodeType === 1) {
                 levelChooseContentView.childNodes[i].childNodes[0].classList.remove("level_choose_active");
             }
@@ -376,20 +378,20 @@
         randomImg();
     }
 
-    var randomNext = [1, -1];
+    const randomNext = [1, -1];
 
     /**打乱图片顺序*/
     function randomImg() {
         if (items.length === 0) {
             return
         }
-        var xOrY = 1;
+        let xOrY = 1;
 
-        var elements = content.getElementsByTagName("img");
+        const elements = content.getElementsByTagName("img");
         //随机走50步
-        for (var i = 0; i < 100; ++i) {
+        for (let i = 0; i < 100; ++i) {
             xOrY = Math.floor(Math.random()*1000%2);
-            var step = Math.floor(Math.random()*1000%2);
+            const step = Math.floor(Math.random() * 1000 % 2);
             if (xOrY === 1) {//走x方向
                 if (emptyPositionX + randomNext[step] <= 0 || emptyPositionX + randomNext[step] >= rowSize) {
                     continue
