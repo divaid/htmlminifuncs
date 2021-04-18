@@ -44,10 +44,10 @@
 
 
     function parseResult(result) {
-        var json = JSON.parse(result);
+        const json = JSON.parse(result);
         musicList = json;
-        var string = "";
-        for (var i = 0;i<json.length; ++i) {
+        let string = "";
+        for (let i = 0; i<json.length; ++i) {
             string += "<li src=\""+json[i].url ;
             string += "\" onclick=\"play(this)\" data-position="+i+">"+json[i].name+"<\/li>";
         }
@@ -70,7 +70,8 @@
     // loadXMLDoc();//加载远程数据
 
     // 本地测试数据
-    parseResult("[{\"url\":\"./musics/菊次郎的夏天.mp3\",\"type\":\"music\",\"name\":\"菊次郎的夏天.mp3\"}," +
+    parseResult("[" +
+        "{\"url\":\"./musics/菊次郎的夏天.mp3\",\"type\":\"music\",\"name\":\"菊次郎的夏天.mp3\"}," +
     "{\"url\":\"./musics/故宫的记忆.mp3\",\"type\":\"music\",\"name\":\"故宫的记忆.mp3\"}," +
     "{\"url\":\"./musics/秋天里的深蓝.mp3\",\"type\":\"music\",\"name\":\"秋天里的深蓝.mp3\"}," +
     "{\"url\":\"./musics/俞灏明-爱的华尔兹.mp3\",\"type\":\"music\",\"name\":\"俞灏明-爱的华尔兹.mp3\"}," +
@@ -83,22 +84,13 @@
 
     function playCurrent(position) {
         if (currentPosition === position) {
-            console.log("return position:" + currentPosition);
             return
         }
 
         clearTimeout(playTimeOut);
 
-        console.log("play:" + musicList[position].url);
-
         audioView.src = musicList[position].url;
 
-        setTimeout(function () {
-            console.log("time is " + audioView.duration);
-            playTimeOut = setTimeout(function () {
-                playNext()
-            }, audioView.duration * 1000)
-        }, 500);
 
         musicListView.childNodes[currentPosition].classList.remove("active");
         currentPosition = parseInt(position);
@@ -112,18 +104,9 @@
             playCurrent(currentPosition + 1)
     }
 
-    function seekListener() {
-        clearTimeout(playTimeOut);
-
-        playTimeOut = setTimeout(function () {
-            playNext()
-        }, (audioView.duration - audioView.currentTime) * 1000);
-
-        console.log("seeked time " + (audioView.duration - audioView.currentTime));
-
+    audioView.onended = function(){
+        playNext();
     }
-
-    audioView.addEventListener("seeking", seekListener);
 </script>
 </body>
 </html>
