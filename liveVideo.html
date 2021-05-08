@@ -9,18 +9,18 @@
     <title>player</title>
     <style>
         .active {
-            color: red;
+            color: #7fb80e;
         }
 
         .switch_channel_label_checked {
             background-color: red;
         }
 
-        ul {
+        ol {
             margin: 0;
         }
 
-        #channel_show_icon_parent, ul {
+        #channel_show_icon_parent, ol {
             transition-duration: 300ms;
         }
 
@@ -44,7 +44,7 @@
                 color: rgba(230, 230, 230, 0.5);
             }
 
-            ul {
+            ol {
                 width: 120px;
             }
 
@@ -135,7 +135,7 @@
                 /*width: 100px;*/
             }
 
-            ul {
+            ol {
                 width: 150px;
             }
 
@@ -213,7 +213,7 @@
     </div>
 
 
-    <ul style="z-index: 2" id="channels"></ul>
+    <ol style="z-index: 2" id="channels"></ol>
 
     <div class="showed_channels_icon" onclick="onChannelIconClick()" id="channel_show_icon_parent">
         <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2439">
