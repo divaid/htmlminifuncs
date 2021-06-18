@@ -14,29 +14,46 @@
             color: #0033FF;
         }
     </style>
+
+    <script src="js/request.js"></script>
 </head>
 <body>
-<ol>
-    <li><a href="https://v.pptv.com/show/cHv0c9tBse9S0Dg.html" target="_blank">我和我的祖国</a></li>
-    <li><a href="https://v.pptv.com/show/eL6zMZnicb60QjvY.html?rcc_id=wap_033" target="_blank">机器侠</a></li>
-    <li><a href="http://m.rr.tv/detail/17780?snum=1" target="_blank">集结号</a></li>
-    <li><a href="https://m.rr.tv/detail/17648?snum=1" target="_blank">十二生肖</a></li>
-    <li><a href="http://m.rr.tv/detail/17704?snum=1" target="_blank">机器之血</a></li>
-    <li><a href="https://v.pptv.com/show/7XdNyjKYCEapJ48.html" target="_blank">缝纫机乐队</a></li>
-    <li><a href="https://v.pptv.com/show/iclHpZs40pOJFwys.html" target="_blank">巧奔妙逃</a></li>
-    <li><a href="https://v.pptv.com/show/Nfh39FzCMnDTUbk.html" target="_blank">姜子牙</a></li>
-    <li><a href="https://v.pptv.com/show/qnj1ctpAsO5Rzzc.html" target="_blank">胖子行动队</a></li>
-    <li><a href="http://m.rr.tv/detail/17727?snum=1" target="_blank">追凶者也</a></li>
-    <li><a href="http://m.rr.tv/detail/35018?snum=1" target="_blank">大明劫</a></li>
-    <li><a href="http://m.rr.tv/detail/17642?snum=1" target="_blank">捉妖记</a></li>
-    <li><a href="http://m.rr.tv/detail/35301?snum=1" target="_blank">拆弹专家</a></li>
-    <li><a href="http://m.rr.tv/detail/34990?snum=1" target="_blank">叶问</a></li>
-    <li><a href="https://www.wasu.cn/wap/Play/show/id/9758995?refer=sm.cn" target="_blank">摩登时代</a></li>
-    <li><a href="https://www.wasu.cn/wap/play/show/id/9759053" target="_blank">淘金记</a></li>
-    <li><a href="https://v.pptv.com/show/EuKeHYXrW5n8euI.html" target="_blank">战狼</a></li>
-    <li><a href="http://www.le.com/ptv/vplay/31349997.html" target="_blank">战狼2</a></li>
-    <li><a href="http://www.le.com/ptv/vplay/1355083.html?1441590632" target="_blank">功夫熊猫1</a></li>
-    <li><a href="http://www.le.com/ptv/vplay/31577959.html?ch=baidu_ffdsj&from=baidu_so&site=baidu_all" target="_blank">流浪地球</a></li>
+<ol id="movies_parent">
 </ol>
+
+<script>
+    const listView = document.getElementById("movies_parent");
+
+    const data = [
+        {"title": "我和我的祖国", "url": "https://v.pptv.com/show/cHv0c9tBse9S0Dg.html"},
+        {"title": "机器侠", "url": "https://v.pptv.com/show/eL6zMZnicb60QjvY.html?rcc_id=wap_033"},
+        {"title": "集结号", "url": "http://m.rr.tv/detail/17780?snum=1"},
+        {"title": "十二生肖", "url": "https://m.rr.tv/detail/17648?snum=1"},
+        {"title": "机器之血", "url": "http://m.rr.tv/detail/17704?snum=1"},
+        {"title": "缝纫机乐队", "url": "https://v.pptv.com/show/7XdNyjKYCEapJ48.html"},
+        {"title": "巧奔妙逃", "url": "https://v.pptv.com/show/iclHpZs40pOJFwys.html"},
+        {"title": "姜子牙", "url": "https://v.pptv.com/show/Nfh39FzCMnDTUbk.html"},
+        {"title": "胖子行动队", "url": "https://v.pptv.com/show/qnj1ctpAsO5Rzzc.html"},
+        {"title": "追凶者也", "url": "http://m.rr.tv/detail/17727?snum=1"},
+        {"title": "大明劫", "url": "http://m.rr.tv/detail/35018?snum=1"},
+        {"title": "捉妖记", "url": "http://m.rr.tv/detail/17642?snum=1"},
+        {"title": "拆弹专家", "url": "http://m.rr.tv/detail/35301?snum=1"},
+        {"title": "叶问", "url": "http://m.rr.tv/detail/34990?snum=1"},
+        {"title": "摩登时代", "url": "https://www.wasu.cn/wap/Play/show/id/9758995?refer=sm.cn"},
+        {"title": "淘金记", "url": "https://www.wasu.cn/wap/play/show/id/9759053"},
+        {"title": "战狼", "url": "https://v.pptv.com/show/EuKeHYXrW5n8euI.html"},
+    ];
+
+    let innerString = "";
+    for(let i =0; i<data.length; ++i){
+        innerString+= "<li><a href=\""+data[i].url+"\" target=\"_blank\">"+data[i].title+"</a></li>"
+    }
+
+    listView.innerHTML = innerString;
+
+    getRequest("https://divaid.github.io/htmlminifuncs/data/lives", "", function (res) {
+        console.log(res)
+    })
+</script>
 </body>
 </html>

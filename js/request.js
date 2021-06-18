@@ -1,55 +1,55 @@
 function getRequest(url,param, sucCallback, failCallback)
 {
-    var xmlhttp;
+    let xmlHttp;
     if (window.XMLHttpRequest)
     {// code for IE7+, Firefox, Chrome, Opera, Safari
-        xmlhttp=new XMLHttpRequest();
+        xmlHttp=new XMLHttpRequest();
     }
     else
     {// code for IE6, IE5
-        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
     }
-    xmlhttp.onreadystatechange=function()
+    xmlHttp.onreadystatechange=function()
     {
-        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        if (xmlHttp.readyState==4 && xmlHttp.status==200)
         {
             if (sucCallback) {
-                sucCallback(xmlhttp.responseText)
+                sucCallback(xmlHttp.responseText)
             }
         } else {
             if (failCallback) {
-                failCallback(xmlhttp.responseText)
+                failCallback(xmlHttp.responseText)
             }
         }
     };
-    xmlhttp.open("GET",url+"?" +param,true);
-    xmlhttp.send();
+    xmlHttp.open("GET",url+"?" +param,true);
+    xmlHttp.send();
 }
 
 function postRequest(url,param, sucCallback, failCallback)
 {
-    var xmlhttp;
+    let xmlHttp;
     if (window.XMLHttpRequest)
     {// code for IE7+, Firefox, Chrome, Opera, Safari
-        xmlhttp=new XMLHttpRequest();
+        xmlHttp=new XMLHttpRequest();
     }
     else
     {// code for IE6, IE5
-        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+        xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
     }
-    xmlhttp.onreadystatechange=function()
+    xmlHttp.onreadystatechange=function()
     {
-        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        if (xmlHttp.readyState==4 && xmlHttp.status==200)
         {
             if (sucCallback) {
-                sucCallback(xmlhttp.responseText)
+                sucCallback(xmlHttp.responseText)
             }
         } else {
             if (failCallback) {
-                failCallback(xmlhttp.responseText)
+                failCallback(xmlHttp.responseText)
             }
         }
     };
-    xmlhttp.open("POST",url,true);
-    xmlhttp.send(param);
+    xmlHttp.open("POST",url,true);
+    xmlHttp.send(param);
 }
