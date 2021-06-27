@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+
+    <meta charset="UTF-8">
+    <title>movies</title>
+    <style>
+        a{
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+            color: #0033FF;
+        }
+    </style>
+
+    <script src="js/request.js"></script>
+</head>
+<body>
+<ol id="movies_parent">
+</ol>
+
+<script>
+    const listView = document.getElementById("movies_parent");
+
+    const data = [
+        {"title": "绝味川菜", "url": "https://tv.cctv.com/2020/12/27/VIDER9ovcJqA6y9fOZBnD5oL201227.shtml?spm=C55924871139.PT8hUEEDkoTi.0.0"},
+        {"title": "寻味顺德", "url": "https://tv.cctv.com/2016/04/30/VIDEI4vpEib8qTo5iJ8vGVgY160430.shtml"},
+        {"title": "舌尖上的中国", "url": "https://tv.cctv.com/2018/02/15/VIDE4x73eueOfNOCFlISpwnq180215.shtml?spm=C55924871139.PT8hUEEDkoTi.0.0"},
+
+        {"title": "航拍中国第一季", "url": "https://tv.cctv.com/2017/03/04/VIDEhOELsnCYlUtKhOmfO4Qu170304.shtml?spm=C55924871139.PKgX4CXWWE68.0.0"},
+        
+        {"title": "航拍中国第二季", "url": "https://tv.cctv.com/2019/04/08/VIDEK0hxH6lJEgOJTBnd6Zxd190408.shtml?spm=C55924871139.PY8jbb3G6NT9.0.0"},
+
+        {"title": "航拍中国第三季", "url": "https://tv.cctv.com/2020/05/25/VIDE3JWBNMchRN5x8IBwxTAU200525.shtml?spm=C55924871139.PT8hUEEDkoTi.0.0"},
+
+
+        {"title": "武林外传", "url": "https://tv.cctv.com/2014/07/27/VIDE1406399770522952.shtml?spm=C55853485115.PN6hjciJxJ1y.0.0"},
+        {"title": "炊事班的故事第二部", "url": "https://tv.cctv.com/2010/01/08/VIDE1353995819333943.shtml?spm=C55853485115.Pbqb0ldQ5nlz.0.0"},
+        {"title": "家有儿女", "url": "https://tv.cctv.com/2010/06/11/VIDE1354275213640260.shtml?spm=C55853485115.PfwqIbPuFErM.0.0"},
+        {"title": "家有儿女第二部", "url": "https://tv.cctv.com/2010/06/11/VIDE1392021556292743.shtml?spm=C55853485115.PPZpkqY0JvSB.0.0"},
+        {"title": "家有儿女第四部", "url": "https://tv.cctv.com/2012/05/01/VIDE1355968298442281.shtml?spm=C55853485115.PfwqIbPuFErM.0.0"},
+        
+        {"title": "恰同学少年", "url": "https://tv.cctv.com/2009/12/18/VIDE1354519527816225.shtml"},
+
+        {"title": "大宋提刑官", "url": "https://tv.cctv.com/2009/11/28/VIDE1355686293956623.shtml?spm=C55853485115.PN6hjciJxJ1y.0.0"},
+
+        {"title": "神探狄仁杰", "url": "https://tv.cctv.com/2010/01/08/VIDE1354264601268382.shtml?spm=C55853485115.PN6hjciJxJ1y.0.0"},
+
+
+        {"title": "隐秘而伟大", "url": "https://tv.cctv.com/2020/11/07/VIDEuR4FjDuLAAT4GMgCT04A201107.shtml?spm=C55853485115.PYUgfrkuJQyH.0.0"},
+        {"title": "大侠霍元甲", "url": "https://tv.cctv.com/2020/07/30/VIDENP4lMhbRoKQBXg8kwBtC200730.shtml?spm=C55853485115.PHWZqslic5c7.0.0"},
+        {"title": "三八线", "url": "https://tv.cctv.com/2016/08/12/VIDE7puZXORVMACsRfRsMalk160812.shtml?spm=C55853485115.Pbqb0ldQ5nlz.0.0"},
+        {"title": "西游记续集", "url": "https://tv.cctv.com/2014/07/31/VIDE1406773645707165.shtml?spm=C55853485115.PN6hjciJxJ1y.0.0"}
+    ];
+
+    let innerString = "";
+    for(let i =0; i<data.length; ++i){
+        innerString+= "<li><a href=\""+data[i].url+"\" target=\"_blank\">"+data[i].title+"</a></li>"
+    }
+
+    listView.innerHTML = innerString;
+
+    getRequest("https://divaid.github.io/htmlminifuncs/data/lives", "", function (res) {
+        console.log(res)
+    })
+</script>
+</body>
+</html>
