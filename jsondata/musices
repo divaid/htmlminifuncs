@@ -1,1 +1,49 @@
-{"size":15,"data":[{"title":"菊次郎的夏天","url":"https://divaid.github.io/htmlminifuncs/musics/菊次郎的夏天.mp3"},{"title":"儿时的夏日","url":"https://divaid.github.io/htmlminifuncs/musics/儿时的夏日.mp3"},{"title":"故宫的记忆","url":"https://divaid.github.io/htmlminifuncs/musics/故宫的记忆.mp3"},{"title":"秋天里的深蓝","url":"https://divaid.github.io/htmlminifuncs/musics/秋天里的深蓝.mp3"},{"title":"俞灏明-爱的华尔兹","url":"https://divaid.github.io/htmlminifuncs/musics/俞灏明-爱的华尔兹.mp3"},{"title":"SongTaste-月下独酌","url":"https://divaid.github.io/htmlminifuncs/musics/SongTaste-月下独酌.mp3"},{"title":"梅雨西子-夜明","url":"https://divaid.github.io/htmlminifuncs/musics/梅雨西子-夜明.mp3"},{"title":"被遗弃的土豆-吹箫人去玉楼空","url":"https://divaid.github.io/htmlminifuncs/musics/被遗弃的土豆-吹箫人去玉楼空.mp3"},{"title":"晴天的周末在去学校的路上遇见喜欢的人","url":"https://divaid.github.io/htmlminifuncs/musics/晴天的周末在去学校的路上遇见喜欢的人.mp3"},{"title":"宗次郎-いつも何度でも","url":"https://divaid.github.io/htmlminifuncs/musics/宗次郎-いつも何度でも.mp3"},{"title":"ThePianoGuys-LoveStory","url":"https://divaid.github.io/htmlminifuncs/musics/ThePianoGuys-LoveStory.mp3"},{"title":"Hea2t-盛夏与蝉鸣","url":"https://divaid.github.io/htmlminifuncs/musics/Hea2t-盛夏与蝉鸣.mp3"},{"title":"卡农(钢琴曲)","url":"https://divaid.github.io/htmlminifuncs/musics/卡农(钢琴曲).mp3"},{"title":"天箫吟唱-飞越彩虹","url":"https://divaid.github.io/htmlminifuncs/musics/天箫吟唱-飞越彩虹.mp3"},{"title":"宗次郎-故乡的原风景","url":"https://divaid.github.io/htmlminifuncs/musics/宗次郎-故乡的原风景.mp3"}]}
+{
+	"size": 15,
+	"data": [{
+		"title": "菊次郎的夏天",
+		"url": "https://divaid.github.io/htmlminifuncs/musics/菊次郎的夏天.mp3"
+	}, {
+		"title": "儿时的夏日",
+		"url": "https://divaid.github.io/htmlminifuncs/musics/儿时的夏日.mp3"
+	}, {
+		"title": "故宫的记忆",
+		"url": "https://divaid.github.io/htmlminifuncs/musics/故宫的记忆.mp3"
+	}, {
+		"title": "秋天里的深蓝",
+		"url": "https://divaid.github.io/htmlminifuncs/musics/秋天里的深蓝.mp3"
+	}, {
+		"title": "俞灏明-爱的华尔兹",
+		"url": "https://divaid.github.io/htmlminifuncs/musics/俞灏明-爱的华尔兹.mp3"
+	}, {
+		"title": "SongTaste-月下独酌",
+		"url": "https://divaid.github.io/htmlminifuncs/musics/SongTaste-月下独酌.mp3"
+	}, {
+		"title": "梅雨西子-夜明",
+		"url": "https://divaid.github.io/htmlminifuncs/musics/梅雨西子-夜明.mp3"
+	}, {
+		"title": "被遗弃的土豆-吹箫人去玉楼空",
+		"url": "https://divaid.github.io/htmlminifuncs/musics/被遗弃的土豆-吹箫人去玉楼空.mp3"
+	}, {
+		"title": "晴天的周末在去学校的路上遇见喜欢的人",
+		"url": "https://divaid.github.io/htmlminifuncs/musics/晴天的周末在去学校的路上遇见喜欢的人.mp3"
+	}, {
+		"title": "宗次郎-いつも何度でも",
+		"url": "https://divaid.github.io/htmlminifuncs/musics/宗次郎-いつも何度でも.mp3"
+	}, {
+		"title": "ThePianoGuys-LoveStory",
+		"url": "https://divaid.github.io/htmlminifuncs/musics/ThePianoGuys-LoveStory.mp3"
+	}, {
+		"title": "Hea2t-盛夏与蝉鸣",
+		"url": "https://divaid.github.io/htmlminifuncs/musics/Hea2t-盛夏与蝉鸣.mp3"
+	}, {
+		"title": "卡农(钢琴曲)",
+		"url": "https://divaid.github.io/htmlminifuncs/musics/卡农(钢琴曲).mp3"
+	}, {
+		"title": "天箫吟唱-飞越彩虹",
+		"url": "https://divaid.github.io/htmlminifuncs/musics/天箫吟唱-飞越彩虹.mp3"
+	}, {
+		"title": "宗次郎-故乡的原风景",
+		"url": "https://divaid.github.io/htmlminifuncs/musics/宗次郎-故乡的原风景.mp3"
+	}]
+}
