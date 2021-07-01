@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<!-- v2.0:
+1.添加结果连续运算逻辑
+2.添加数字运算显示
+3.四舍五入保留两位小数（消除精度丢失影响）
+ -->
+<html>
+<head>
+	<style>
+		text{
+			width:120px;
+			height:50px;
+			background: #888888;
+			border-radius: 10px;
+			display: block;
+			float: left;
+			text-align: center;
+			line-height: 50px;
+			margin-left: 10px;
+			margin-top: 10px;
+		}
+		.active{
+			background: #aaaaaa;
+		}
+	</style>
+</head>
+<body>
+	<div style="width:500px;height:100px;background-color: white;border:1px solid #333;border-radius: 10px;margin-left: 10px;text-align: right;line-height: 50px;padding-right:10px">
+		<p id="pre_num" style="text-align: right;width:100%;height:50px;line-height: 50px;margin:0px;color:#8e8a89"> </p>
+		<p id="result" style="text-align: right;line-height: 50px;margin:0px;color:#3e3a39">0</p>
+	</div>
+	
+	<div class="btn_parent" style="width:520px">
+		<text data-index=0 id="btn_1">1</text>
+		<text data-index=1 id="btn_2">2</text>
+
+		<text data-index=2 id="btn_3">3</text>
+		<text data-index=3 id="btn_plus">＋</text>
+
+
+		<text data-index=4 id="btn_4">4</text>
+
+		<text data-index=5 id="btn_5">5</text>
+
+		<text data-index=6 id="btn_6">6</text>
+		<text data-index=7 id="btn_minus">−</text>
+
+
+		<text data-index=8 id="btn_7">7</text>
+
+		<text data-index=9 id="btn_8">8</text>
+
+		<text data-index=10 id="btn_9">9</text>
+		<text data-index=11 id="btn_multi">×</text>
+
+
+		<text data-index=12 id="btn_0">0</text>
+
+		<text data-index=13 id="btn_dot">.</text>
+
+		<text data-index=14 id="btn_equal">=</text>
+
+
+		<text data-index=15 id="btn_except">÷</text>
+	</div>
+
+	<script type="text/javascript">
+		var firstNum = 0;
+		var secondNum = 0;
+		var result = 0;
+		var sign = "";
+		var hasDot = false;
+
+		var resultElement = document.getElementById("result")
+		var preNumElement = document.getElementById("pre_num")
+
+		function isMobile() {
+	        let info = navigator.userAgent;
+	        let agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPod", "iPad"];
+	        for (let i = 0; i < agents.length; i++) {
+	            if (info.indexOf(agents[i]) >= 0) return true;
+	        }
+	        return false;
+    	}
+
+
+
+		function startTouch(e){
+			let id = e.target.id
+			e.target.classList.add("active")
+			return false
+		}
+
+		function endTouch(e){
+			let id = e.target.id
+			e.target.classList.remove("active")
+			onBtnClick(id)
+			return false
+		}
+
+		function inputNum(num){
+				if(sign.length === 0) {
+					if (hasDot) {
+						if (num > 0) {
+							firstNum = parseFloat(firstNum + "" + num)
+							hasDot = false
+						} else {
+							firstNum = firstNum + "" + num
+						}
+					} else {
+						firstNum = parseFloat(firstNum + "" + num)
+					}
+					resultElement.innerText = firstNum
+				} else {
+					if (hasDot) {
+						if (num > 0) {
+							secondNum = parseFloat(secondNum + "" + num)
+							hasDot = false
+						} else {
+							secondNum = secondNum + "" + num
+						}
+					} else {
+						secondNum = parseFloat(secondNum + "" + num)
+					}
+					
+					resultElement.innerText = secondNum
+				}
+		}
+
+		function setSign(mathSign){
+			if (sign.length === 0) {
+				firstNum = parseFloat(resultElement.innerText)
+			}
+			sign = mathSign
+			switch(sign) {
+				case "btn_plus":
+					preNumElement.innerText = firstNum + " +"
+				break;
+				case "btn_minus":
+					preNumElement.innerText = firstNum + " −"
+				break;
+				case "btn_multi":
+					preNumElement.innerText = firstNum + " ×"
+				break;
+				case "btn_except":
+					preNumElement.innerText = firstNum + " ÷"
+				break;
+			}
+
+			resultElement.innerText = "0"
+			
+		}
+
+		function onBtnClick(id){
+			switch(id){
+				case "btn_1":
+					inputNum(1)
+				break;
+				case "btn_2":
+					inputNum(2)
+				break;
+				case "btn_3":
+					inputNum(3)
+				break;
+				case "btn_plus":
+					setSign("btn_plus")
+					// sign = "btn_plus"
+					// firstNum = parseFloat(resultElement.innerText)
+				break;
+				case "btn_4":
+					inputNum(4)
+				break;
+				case "btn_5":
+					inputNum(5)
+				break;
+				case "btn_6":
+					inputNum(6)
+				break;
+				case "btn_minus":
+					setSign("btn_minus")
+				break;
+				case "btn_7":
+					inputNum(7)
+				break;
+				case "btn_8":
+					inputNum(8)
+				break;
+				case "btn_9":
+					inputNum(9)
+				break;
+				case "btn_multi":
+					setSign("btn_multi")
+				break;
+				case "btn_0":
+					inputNum(0)
+				break;
+				case "btn_dot":
+					hasDot = true;
+					if (sign.length === 0) {
+						firstNum +="."
+						resultElement.innerText = firstNum
+					} else {
+						secondNum +="."
+						resultElement.innerText = secondNum
+					}
+
+				break;
+				case "btn_equal":
+					getResult()
+				break;
+				case "btn_except":
+					setSign("btn_except")
+				break;
+			}
+		}
+
+		function getResult(){
+			switch(sign) {
+				case "btn_plus":
+					firstNum = firstNum + secondNum;
+				break;
+				case "btn_minus":
+					firstNum = firstNum - secondNum;
+				break;
+				case "btn_multi":	
+					firstNum = firstNum * secondNum;
+				break;
+				case "btn_except":	
+					firstNum = firstNum / secondNum;
+				break;
+			}
+			if (sign.length > 0) {
+				preNumElement.innerText = preNumElement.innerText + " " + secondNum + " ="
+			} else {
+				preNumElement.innerText = firstNum + " ="
+			}
+
+			secondNum = 0;
+			
+			resultElement.innerText = Math.round(firstNum * 100) / 100
+			
+			firstNum = 0
+			sign = "";
+		}
+
+
+		function setEventListener(){
+    		let elements = document.getElementsByClassName("btn_parent")[0].getElementsByTagName("text");
+    		if (isMobile()) {
+				for(let i=0; i<elements.length;++i){
+					elements[i].ontouchstart = startTouch
+					elements[i].ontouchend = endTouch
+    			}
+    		} else {
+    			for(let i=0; i<elements.length;++i){
+					elements[i].onmousedown = startTouch
+					elements[i].onmouseup = endTouch
+    			}
+    		}
+    		
+    	}
+
+    	setEventListener()
+	</script>
+</body>
+</html>
