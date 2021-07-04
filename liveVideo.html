@@ -193,65 +193,86 @@
                 display: none;
             }
         }
+
+        video {
+            object-position: top center;
+            object-fit: fill
+
+        }
     </style>
 </head>
 <body>
 
-    <video controls x-webkit-airplay="allow" webkit-playsinline="true" playsinline x5-video-player-type="h5-page"
-           style="z-index: 1;" autoplay
-           id="video_player" src="" width="100%"
-    >
-    </video>
+<video controls x-webkit-airplay="allow" webkit-playsinline="true" playsinline x5-video-player-type="h5-page"
+       style="z-index: 1;" autoplay
+       id="video_player" src="" width="100%"
+
+>
+</video>
 
 
-    <div class="internet_alert" style="margin-top: 10px">连接wifi看，否则会消耗手机流量
-        <span onclick="switchChannelPosition()" style="float: right;display: none">列表放在底部
+<div class="internet_alert" style="margin-top: 10px">连接wifi看，否则会消耗手机流量
+    <span onclick="switchChannelPosition()" style="float: right;display: none">列表放在底部
             <span
-            class="switch_channel_label"
-            id="switch_label">✓</span>
+                    class="switch_channel_label"
+                    id="switch_label">✓</span>
         </span>
-    </div>
+</div>
 
 
-    <ol style="z-index: 2" id="channels"></ol>
+<ol style="z-index: 2" id="channels"></ol>
 
-    <div class="showed_channels_icon" onclick="onChannelIconClick()" id="channel_show_icon_parent">
-        <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2439">
-            <path d="M401.07 708.27L206.93 512 403.2 315.73 341.33 256l-256 256 256 256 59.74-59.73z m221.86 0L819.2 512 622.93 315.73 682.67 256l256 256-256 256-59.74-59.73z" p-id="2440"></path>
-        </svg>
-    </div>
+<div class="showed_channels_icon" onclick="onChannelIconClick()" id="channel_show_icon_parent">
+    <svg class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2439">
+        <path d="M401.07 708.27L206.93 512 403.2 315.73 341.33 256l-256 256 256 256 59.74-59.73z m221.86 0L819.2 512 622.93 315.73 682.67 256l256 256-256 256-59.74-59.73z"
+              p-id="2440"></path>
+    </svg>
+</div>
 
-    <script>
-        const channelList = [
-            {"title": "中央十套", "url": "http://183.207.249.14/PLTV/3/224/3221225550/index.m3u8"},
-            {"title": "中央十二套", "url": "http://223.110.245.172/PLTV/3/224/3221225556/index.m3u8"},
-            {"title": "中央十四套", "url": "http://223.110.245.169/PLTV/3/224/3221227201/index.m3u8"},
-        ];
+<script>
+    var channelList = []
+        // {
+        //     "size": 3,
+        //     "data": [{
+        //         "title": "中央十套",
+        //         "url": "http://183.207.249.14/PLTV/3/224/3221225550/index.m3u8"
+        //     }, {
+        //         "title": "中央十二套",
+        //         "url": "http://223.110.245.172/PLTV/3/224/3221225556/index.m3u8"
+        //     },
+        //         {"title": "中央十四套", "url": "http://223.110.245.169/PLTV/3/224/3221227201/index.m3u8"}]
+        // }.data;
 
 
-        const channelParent = document.querySelector("#channels");
-        const channelShowHideIcon = document.querySelector("#channel_show_icon_parent");
-        const player = document.querySelector("#video_player");
+    const channelParent = document.querySelector("#channels");
+    const channelShowHideIcon = document.querySelector("#channel_show_icon_parent");
+    const player = document.querySelector("#video_player");
 
 
-        channelShowHideIcon.style.top = (screen.availWidth / 16 * 9 - 60) / 2 + "px";
-        player.style.height = screen.availWidth / 16 * 9 + "px";
-        channelParent.style.height = screen.availWidth / 16 * 9 + "px";
+    channelShowHideIcon.style.top = (screen.availWidth / 16 * 9 - 60) / 2 + "px";
+    player.style.height = screen.availWidth / 16 * 9 + "px";
+    channelParent.style.height = screen.availWidth / 16 * 9 + "px";
 
-        let position = window.localStorage["last_tv_position"];
-        if (position === undefined) {
-            position = 0;
-        }
+    let position = window.localStorage["last_tv_position"];
+    if (position === undefined) {
+        position = 0;
+    } else {
+        position = parseInt(position)
+    }
+
+
+    const channelClickListener = function (e) {
+        player.src = channelList[e.target.dataset.position].url;
+        channelParent.getElementsByTagName("li")[position].classList.remove("active");
+        position = e.target.dataset.position;
+        window.localStorage["last_tv_position"] = e.target.dataset.position;
+        channelParent.getElementsByTagName("li")[position].classList.add("active")
+    };
+
+
+    function parseResult(){
         player.src = channelList[position].url;
 
-
-        const channelClickListener = function (e) {
-            player.src = channelList[e.target.dataset.position].url;
-            channelParent.getElementsByTagName("li")[position].classList.remove("active");
-            position = e.target.dataset.position;
-            window.localStorage["last_tv_position"] = e.target.dataset.position;
-            channelParent.getElementsByTagName("li")[position].classList.add("active")
-        };
         for (let i = 0; i < channelList.length; ++i) {
             const ele = document.createElement("li");
             ele.innerText = channelList[i].title;
@@ -263,180 +284,198 @@
             }
         }
 
-
-        let showChannel = true;
-
-        function onChannelIconClick(e) {
-            if (showChannel) {
-                channelParent.classList.add("hide_channels");
-                showChannel = false;
-                channelShowHideIcon.classList.remove("showed_channels_icon");
-                channelShowHideIcon.classList.add("hide_channels_icon");
-            } else {
-                showChannel = true;
-                channelParent.classList.remove("hide_channels");
-                channelShowHideIcon.classList.add("showed_channels_icon");
-                channelShowHideIcon.classList.remove("hide_channels_icon");
-            }
-        }
-
-
-        let switchLabel = document.querySelector("#switch_label");
-
-        //
-        // var channelsRight = window.localStorage["channels_right"];
-        // if (channelsRight === undefined) {
-        //     channelsRight = true;
-        //
-        // }
-        // if (channelsRight === 'true') {
-        //     showChannelRight();
-        // } else {
-        //     showChannelBottom();
-        // }
-
-        function switchChannelPosition(e) {
-            if (channelsRight) {
-                showChannelBottom()
-            } else {
-                showChannelRight()
-            }
-        }
-
-        function showChannelRight() {
-            channelsRight = true;
-
-            channelParent.classList.add("right_channels");
-
-            channelParent.classList.remove("bottom_channels");
-            channelParent.style.height = (screen.availWidth / 16 * 9) + "px";
-
-            switchLabel.classList.remove("switch_channel_label_checked");
-            window.localStorage["channels_right"] = true;
-
-            channelShowHideIcon.style.display = "inline-block";
-
-        }
-
-        function showChannelBottom() {
-            channelParent.classList.remove("right_channels");
-            channelParent.classList.add("bottom_channels");
-            switchLabel.classList.add("switch_channel_label_checked");
-
-            channelParent.style.height = (screen.availHeight - 55 - screen.availWidth / 16 * 9) + "px";
-
-            channelsRight = false;
-
-            window.localStorage["channels_right"] = false;
-            channelShowHideIcon.style.display = "none";
-        }
-
-
         channelParent.scrollTop = (player.clientHeight / 7) * (position - 2);
 
-
-        //判断手机横竖屏状态：
-        window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", function () {
-            if (window.orientation === 180 || window.orientation === 0) {
-                console.log('竖屏状态！' + screen.availHeight + " " + screen.availWidth);
-                player.style.height = screen.availWidth / 16 * 9 + "px";
-                // channelParent.style.height = screen.availWidth / 16 * 9 + "px";
-
-                channelShowHideIcon.style.top = (screen.availWidth / 16 * 9 - 60) / 2 + "px";
+    }
 
 
-                // quitFullScreen()
-            } else if (window.orientation === 90 || window.orientation === -90) {
-                console.log('横屏状态！' + screen.availHeight + " " + screen.availWidth);
-                player.style.height = screen.availHeight + "px";
-                // channelParent.style.height = screen.availHeight + "px";
+    let showChannel = true;
 
-                channelShowHideIcon.style.top = (screen.availHeight - 60) / 2 + "px";
-
-
-                // requestFullScreen(document.querySelector("#test"))
-            }
-        }, false);
-
-
-        function isMobile() {
-            let info = navigator.userAgent;
-            let agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPod", "iPad"];
-            for (let i = 0; i < agents.length; i++) {
-                if (info.indexOf(agents[i]) >= 0) return true;
-            }
-            return false;
+    function onChannelIconClick(e) {
+        if (showChannel) {
+            channelParent.classList.add("hide_channels");
+            showChannel = false;
+            channelShowHideIcon.classList.remove("showed_channels_icon");
+            channelShowHideIcon.classList.add("hide_channels_icon");
+        } else {
+            showChannel = true;
+            channelParent.classList.remove("hide_channels");
+            channelShowHideIcon.classList.add("showed_channels_icon");
+            channelShowHideIcon.classList.remove("hide_channels_icon");
         }
+    }
 
-        function mobileChannelPosition() {
-            if (isMobile()) {
-                // channelParent.classList.add("bottom_channels")
-                showChannelBottom();
-            } else {
-                // channelParent.classList.add("right_channels")
-                showChannelRight();
-            }
+
+    let switchLabel = document.querySelector("#switch_label");
+
+    //
+    // var channelsRight = window.localStorage["channels_right"];
+    // if (channelsRight === undefined) {
+    //     channelsRight = true;
+    //
+    // }
+    // if (channelsRight === 'true') {
+    //     showChannelRight();
+    // } else {
+    //     showChannelBottom();
+    // }
+
+    function switchChannelPosition(e) {
+        if (channelsRight) {
+            showChannelBottom()
+        } else {
+            showChannelRight()
         }
+    }
 
-        mobileChannelPosition();
+    function showChannelRight() {
+        channelsRight = true;
 
-        //video/audio 标签属性：
-        // loop：设置视频／音频循环播放
-        // controls：显示视频／音频默认控制条
-        // autoplay：设置视频／音频立即播放（自动播放）
+        channelParent.classList.add("right_channels");
 
-        //video／audio js对象属性及方法
-        //player.duration:视频／音频时长；
-        //player.paused:视频／音频是否暂停；
-        //player.volume//视频／音频声音大小0.0-1.0；
-        //player.muted//视频／音频声音是否静音；
-        //player.ended//视频／音频是否播放结束；
-        // player.currentTime//视频／音频已播放时间；
-        // player.video.playbackRate//视频／音频倍速；
+        channelParent.classList.remove("bottom_channels");
+        channelParent.style.height = (screen.availWidth / 16 * 9) + "px";
 
-        // player.play()视频播放
-        // player.pause()视频暂停
+        switchLabel.classList.remove("switch_channel_label_checked");
+        window.localStorage["channels_right"] = true;
 
-        //
-        // function requestFullScreen(element) {
-        //     if (isFullScreen()) {
-        //         return;
-        //     }
-        //     // var element = document.querySelector("div");
-        //     if (element.requestFullscreen) {
-        //         element.requestFullscreen();
-        //     } else if (element.webkitRequestFullScreen) {
-        //         element.webkitRequestFullScreen();
-        //     } else if (element.mozRequestFullScreen) {
-        //         element.mozRequestFullScreen();
-        //     } else if (element.msRequestFullScreen) {
-        //         element.msRequestFullScreen();
-        //     }
-        // }
-        //
-        // function quitFullScreen() {
-        //     if (!isFullScreen()) {
-        //         return;
-        //     }
-        //     if (document.cancelFullscreen) {
-        //         document.cancelFullscreen();
-        //     } else if (document.webkitCancelFullScreen) {
-        //         document.webkitCancelFullScreen();
-        //     } else if (document.mozCancelFullScreen) {
-        //         document.mozCancelFullScreen();
-        //     } else if (document.msCancelFullScreen) {
-        //         document.msCancelFullScreen();
-        //     }
-        // }
-        //
-        //
-        // function isFullScreen() {
-        //     if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
-        //         return true;
-        //     } else {
-        //         return false;
-        //     }
-        // }
-    </script>
+        channelShowHideIcon.style.display = "inline-block";
+
+    }
+
+    function showChannelBottom() {
+        channelParent.classList.remove("right_channels");
+        channelParent.classList.add("bottom_channels");
+        switchLabel.classList.add("switch_channel_label_checked");
+
+        channelParent.style.height = (screen.availHeight - 55 - screen.availWidth / 16 * 9) + "px";
+
+        channelsRight = false;
+
+        window.localStorage["channels_right"] = false;
+        channelShowHideIcon.style.display = "none";
+    }
+
+
+
+
+    //判断手机横竖屏状态：
+    window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", function () {
+        if (window.orientation === 180 || window.orientation === 0) {
+            console.log('竖屏状态！' + screen.availHeight + " " + screen.availWidth);
+            player.style.height = screen.availWidth / 16 * 9 + "px";
+            // channelParent.style.height = screen.availWidth / 16 * 9 + "px";
+
+            channelShowHideIcon.style.top = (screen.availWidth / 16 * 9 - 60) / 2 + "px";
+
+
+            // quitFullScreen()
+        } else if (window.orientation === 90 || window.orientation === -90) {
+            console.log('横屏状态！' + screen.availHeight + " " + screen.availWidth);
+            player.style.height = screen.availHeight + "px";
+            // channelParent.style.height = screen.availHeight + "px";
+
+            channelShowHideIcon.style.top = (screen.availHeight - 60) / 2 + "px";
+
+
+            // requestFullScreen(document.querySelector("#test"))
+        }
+    }, false);
+
+
+    function isMobile() {
+        let info = navigator.userAgent;
+        let agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPod", "iPad"];
+        for (let i = 0; i < agents.length; i++) {
+            if (info.indexOf(agents[i]) >= 0) return true;
+        }
+        return false;
+    }
+
+    function mobileChannelPosition() {
+        if (isMobile()) {
+            // channelParent.classList.add("bottom_channels")
+            showChannelBottom();
+        } else {
+            // channelParent.classList.add("right_channels")
+            showChannelRight();
+        }
+    }
+
+    mobileChannelPosition();
+
+
+
+
+    //video/audio 标签属性：
+    // loop：设置视频／音频循环播放
+    // controls：显示视频／音频默认控制条
+    // autoplay：设置视频／音频立即播放（自动播放）
+
+    //video／audio js对象属性及方法
+    //player.duration:视频／音频时长；
+    //player.paused:视频／音频是否暂停；
+    //player.volume//视频／音频声音大小0.0-1.0；
+    //player.muted//视频／音频声音是否静音；
+    //player.ended//视频／音频是否播放结束；
+    // player.currentTime//视频／音频已播放时间；
+    // player.video.playbackRate//视频／音频倍速；
+
+    // player.play()视频播放
+    // player.pause()视频暂停
+
+    //
+    // function requestFullScreen(element) {
+    //     if (isFullScreen()) {
+    //         return;
+    //     }
+    //     // var element = document.querySelector("div");
+    //     if (element.requestFullscreen) {
+    //         element.requestFullscreen();
+    //     } else if (element.webkitRequestFullScreen) {
+    //         element.webkitRequestFullScreen();
+    //     } else if (element.mozRequestFullScreen) {
+    //         element.mozRequestFullScreen();
+    //     } else if (element.msRequestFullScreen) {
+    //         element.msRequestFullScreen();
+    //     }
+    // }
+    //
+    // function quitFullScreen() {
+    //     if (!isFullScreen()) {
+    //         return;
+    //     }
+    //     if (document.cancelFullscreen) {
+    //         document.cancelFullscreen();
+    //     } else if (document.webkitCancelFullScreen) {
+    //         document.webkitCancelFullScreen();
+    //     } else if (document.mozCancelFullScreen) {
+    //         document.mozCancelFullScreen();
+    //     } else if (document.msCancelFullScreen) {
+    //         document.msCancelFullScreen();
+    //     }
+    // }
+    //
+    //
+    // function isFullScreen() {
+    //     if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
+</script>
+
+
+
+
+<script type="text/javascript" src="./js/getRequest.js"></script>
+<script type="text/javascript">
+    getRequest("https://divaid.github.io/htmlminifuncs/jsondata/liveshows", "", function(res){
+        // console.log(JSON.parse(res).data)
+        channelList = JSON.parse(res).data
+        parseResult()
+    })
+</script>
 </body>
 </html>
