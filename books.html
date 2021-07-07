@@ -24,7 +24,7 @@
     </style>
 </head>
 <body>
-    <p style="margin-left: 40px;font-size: 10px;color: #666666">pdf文件需打开需浏览器查看</p>
+    <p style="margin-left: 40px;font-size: 10px;color: #666666">建议在浏览器中打开列表</p>
 <ul id="movies_parent" style="list-style-type: none;padding: 0px">
 </ul>
 
@@ -66,11 +66,11 @@
     function parseResult(){
         let innerString = "";
         for(let i =0; i<data.length; ++i){
-            if (data[i].title.indexOf(".pdf") > 0) {
-                innerString+= "<li style='width: 100%'><a href=\"https://divaid.github.io/htmlminifuncs/pdfreader/web/viewer.html?url="+data[i].url+"\" target=\"_blank\">"+(i + 1)+"."+data[i].title+"</a></li>"
-            } else {
+            // if (data[i].title.indexOf(".pdf") > 0) {
+            //     innerString+= "<li style='width: 100%'><a href=\"https://divaid.github.io/htmlminifuncs/pdfreader/web/viewer.html?url="+data[i].url+"\" target=\"_blank\">"+(i + 1)+"."+data[i].title+"</a></li>"
+            // } else {
                 innerString+= "<li style='width: 100%'><a href=\""+data[i].url+"\" target=\"_blank\">"+(i + 1)+"."+data[i].title+"</a></li>"
-            }
+            // }
         }
 
         listView.innerHTML = innerString;
