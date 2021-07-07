@@ -66,7 +66,11 @@
     function parseResult(){
         let innerString = "";
         for(let i =0; i<data.length; ++i){
-            innerString+= "<li style='width: 100%'><a href=\""+data[i].url+"\" target=\"_blank\">"+(i + 1)+"."+data[i].title+"</a></li>"
+            if (data[i].title.indexOf(".pdf") > 0) {
+                innerString+= "<li style='width: 100%'><a href=\"https://divaid.github.io/htmlminifuncs/pdfreader/web/viewer.html?url="+data[i].url+"\" target=\"_blank\">"+(i + 1)+"."+data[i].title+"</a></li>"
+            } else {
+                innerString+= "<li style='width: 100%'><a href=\""+data[i].url+"\" target=\"_blank\">"+(i + 1)+"."+data[i].title+"</a></li>"
+            }
         }
 
         listView.innerHTML = innerString;
@@ -79,7 +83,7 @@
 <script type="text/javascript">
     getRequest("https://divaid.github.io/htmlminifuncs/jsondata/books", "", function(res){
         // console.log(JSON.parse(res).data)
-        data = JSON.parse(res).data
+        data = JSON.parse(res).data;
         parseResult()
     })
 </script>
