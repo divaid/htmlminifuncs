@@ -8,8 +8,6 @@
 <head>
 	<style>
 		.result_parent{
-			width:506px;
-			height:100px;
 			background-color: white;
 			border:1px solid #333;
 			border-radius: 10px;
@@ -24,75 +22,130 @@
 			line-height: 50px;
 		}
 		#pre_num{
-			height:50px;
 			margin:0px;
 			color:#8e8a89;
 		}
 		#result{
 			text-align: right;
-			line-height: 50px;
-			height:50px;
 			margin:0px;
 			color:#3e3a39;
 		}
 
 		text{
-			width:120px;
-			height:50px;
 			background: #888888;
 			border-radius: 10px;
 			display: block;
 			float: left;
-			text-align: center;
-			line-height: 50px;
-			margin-top: 10px;
-			margin-left: 5px;
-			margin-right: 5px;
+			text-align: center;			
 		}
 		.active{
 			background: #aaaaaa;
+		}
+
+		.btn_parent{
+			margin:0 auto
+		}
+
+		/*手机／平板*/
+        @media (max-width: 1200px) {
+        	
+        	.result_parent_size{
+        		box-sizing: content-box;
+        		width:77%;
+				height:140px;
+				margin-top: 50px;
+				font-size: 25px;
+        	}
+
+        	.pre_num_size{
+        		line-height: 70px;
+				height:70px;
+        	}
+        	.result_view_size{
+        		line-height: 70px;
+				height:70px;
+        	}
+        	.btn_parent_size{
+				width:80%;
+				margin-top: 10px;
+        	}
+        	.text_btn_size{
+				width:21%;
+				height:80px;
+				line-height: 80px;
+				margin-top: 20px;
+				margin-left: 2%;
+				margin-right: 2%;
+				font-size: 30px;
+        	}
+		}
+
+		/*pc端*/
+        @media (min-width: 1201px) {
+        	
+        	.result_parent_size{
+        		width:506px;
+				height:100px;
+        	}
+        	.pre_num_size{
+				height:50px;
+        	}
+        	.result_view_size{
+				line-height: 50px;
+				height:50px;
+        	}
+        	.btn_parent_size{
+        		width:520px;
+        	}
+        	.text_btn_size{
+				width:120px;
+				height:50px;
+				line-height: 50px;
+				margin-top: 10px;
+				margin-left: 5px;
+				margin-right: 5px;
+        	}
 		}
 	</style>
 </head>
 <body>
 
-	<div class="result_parent">
-		<p id="pre_num"> </p>
-		<p id="result">0</p>
+	<div class="result_parent result_parent_size">
+		<p id="pre_num" class="pre_num_size"> </p>
+		<p id="result" class="result_view_size">0</p>
 	</div>
 	
-	<div class="btn_parent" style="width:520px;margin:0 auto">
-		<text data-index=0 id="btn_1">1</text>
-		<text data-index=1 id="btn_2">2</text>
+	<div class="btn_parent btn_parent_size">
+		<text class="text_btn_size" data-index=0 id="btn_1">1</text>
+		<text class="text_btn_size" data-index=1 id="btn_2">2</text>
 
-		<text data-index=2 id="btn_3">3</text>
-		<text data-index=3 id="btn_plus">＋</text>
-
-
-		<text data-index=4 id="btn_4">4</text>
-
-		<text data-index=5 id="btn_5">5</text>
-
-		<text data-index=6 id="btn_6">6</text>
-		<text data-index=7 id="btn_minus">−</text>
+		<text class="text_btn_size" data-index=2 id="btn_3">3</text>
+		<text class="text_btn_size" data-index=3 id="btn_plus">＋</text>
 
 
-		<text data-index=8 id="btn_7">7</text>
+		<text class="text_btn_size" data-index=4 id="btn_4">4</text>
 
-		<text data-index=9 id="btn_8">8</text>
+		<text class="text_btn_size" data-index=5 id="btn_5">5</text>
 
-		<text data-index=10 id="btn_9">9</text>
-		<text data-index=11 id="btn_multi">×</text>
-
-
-		<text data-index=12 id="btn_0">0</text>
-
-		<text data-index=13 id="btn_dot">.</text>
-
-		<text data-index=14 id="btn_equal">=</text>
+		<text class="text_btn_size" data-index=6 id="btn_6">6</text>
+		<text class="text_btn_size" data-index=7 id="btn_minus">−</text>
 
 
-		<text data-index=15 id="btn_except">÷</text>
+		<text class="text_btn_size" data-index=8 id="btn_7">7</text>
+
+		<text class="text_btn_size" data-index=9 id="btn_8">8</text>
+
+		<text class="text_btn_size" data-index=10 id="btn_9">9</text>
+		<text class="text_btn_size" data-index=11 id="btn_multi">×</text>
+
+
+		<text class="text_btn_size" data-index=12 id="btn_0">0</text>
+
+		<text class="text_btn_size" data-index=13 id="btn_dot">.</text>
+
+		<text class="text_btn_size" data-index=14 id="btn_equal">=</text>
+
+		<text class="text_btn_size" data-index=15 id="btn_except">÷</text>
 	</div>
 
 	<script type="text/javascript">
