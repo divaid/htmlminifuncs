@@ -35,28 +35,25 @@ See https://github.com/adobe-type-tools/cmap-resources
 <!-- This snippet is used in production (included from viewer.html) -->
 <link rel="resource" type="application/l10n" href="locale/locale.properties">
 
-    <script>
-        function getParam(param) {
-            var url = location.search; //获取url中"?"符后的字串
-
-            if (url.indexOf("?") != -1) {
-                var str = url.substr(1);
-                strs = str.split("&");
-
-                for (let i = 0; i < strs.length; ++i) {
-                    if (strs[i].indexOf(param) >= 0) {
-                        return strs[i].split("=")[1]
-                    }
-                }
-            }
-            return ""
-        }
-
-        localStorage.url = getParam("url");
-
-
-        console.log(getParam("url"))
-    </script>
+    <!-- <script> 
+         function getParam(param) {
+             var url = location.search; //获取url中"?"符后的字串
+        
+             if (url.indexOf("?") != -1) {
+                 var str = url.substr(1);
+                 strs = str.split("&");
+        
+                 for (let i = 0; i < strs.length; ++i) {
+                     if (strs[i].indexOf(param) >= 0) {
+                         return strs[i].split("=")[1]
+                     }
+                 }
+             }
+             return ""
+         }
+        
+         console.log(getParam("url"))
+    </script> -->
 
 <script src="../build/pdf.js"></script>
 

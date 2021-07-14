@@ -42,6 +42,27 @@ const OptionKind = {
   WORKER: 0x08,
   PREFERENCE: 0x80
 };
+
+
+function getParam(param) {
+    let strs;
+    const url = location.search; //获取url中"?"符后的字串
+    if (url.indexOf("?") != -1) {
+        const str = url.substr(1);
+        strs = str.split("&");
+
+      for (let i = 0; i < strs.length; ++i) {
+        if (strs[i].indexOf(param) >= 0) {
+          return strs[i].split("=")[1]
+        }
+      }
+    }
+    return ""
+}
+
+console.log("url is " + getParam("url"));
+
+
 exports.OptionKind = OptionKind;
 const defaultOptions = {
   cursorToolOnLoad: {
@@ -49,7 +70,7 @@ const defaultOptions = {
     kind: OptionKind.VIEWER + OptionKind.PREFERENCE
   },
   defaultUrl: {
-    value: localStorage.url,
+    value: getParam("url"),
     kind: OptionKind.VIEWER
   },
   defaultZoomValue: {
@@ -2200,9 +2221,10 @@ let validateFileURL;
         protocol
       } = new URL(file, window.location.href);
 
-      if (origin !== viewerOrigin && protocol !== "blob:") {
-        throw new Error("file origin does not match viewer's");
-      }
+      //注释域名不同抛异常逻辑
+      // if (origin !== viewerOrigin && protocol !== "blob:") {
+      //   throw new Error("file origin does not match viewer's");
+      // }
     } catch (ex) {
       PDFViewerApplication.l10n.get("loading_error").then(msg => {
         PDFViewerApplication._documentError(msg, {
