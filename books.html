@@ -33,34 +33,34 @@
     const listView = document.getElementById("movies_parent");
 
     var data = [
-        // {"title": "一碗清汤芥麦面.pdf", "url": "./books/一碗清汤芥麦面.pdf"},
-        // {"title": "佐贺的超级阿嬷.pdf", "url": "./books/佐贺的超级阿嬷.pdf"},
-        // {"title": "解忧杂货铺.txt", "url": "./books/解忧杂货铺.txt"},
-        // {"title": "假如给我三天光明.txt", "url": "./books/假如给我三天光明.txt"},
-        // {"title": "在困难的日子里.txt", "url": "./books/在困难的日子里.txt"},
-        // {"title": "把梦留住.txt", "url": "./books/把梦留住.txt"},
-        // {"title": "童年(高尔基).txt", "url": "./books/童年(高尔基).txt"},
-        // {"title": "草房子.pdf", "url": "./books/草房子.pdf"},
-        // {"title": "小桔灯.txt", "url": "./books/小桔灯.txt"},
-        // {"title": "路遥文集.txt", "url": "./books/路遥文集.txt"},
-        // {"title": "平凡的世界.txt", "url": "./books/平凡的世界.txt"},
-        // {"title": "人生.txt", "url": "./books/人生.txt"},
-        // {"title": "普罗旺斯的一年.txt", "url": "./books/普罗旺斯的一年.txt"},
-        // {"title": "重返普罗旺斯.txt", "url": "./books/重返普罗旺斯.txt"},
-        // {"title": "金盒子.txt", "url": "./books/金盒子.txt"},
-        // {"title": "天蓝色的彼岸.txt", "url": "./books/天蓝色的彼岸.txt"},
-        // {"title": "青铜葵花.txt", "url": "./books/青铜葵花.txt"},
-        // {"title": "海底两万里.txt", "url": "./books/海底两万里.txt"},
-        // {"title": "鲁滨逊漂流记.txt", "url": "./books/鲁滨逊漂流记.txt"},
-        // {"title": "狼图腾.txt", "url": "./books/狼图腾.txt"},
-        // {"title": "西游记.txt", "url": "./books/西游记.txt"},
-        // {"title": "guaimomotou.pdf", "url": "./books/guaimomotou.pdf"},
-        // {"title": "CuoreHeart爱的教育.pdf", "url": "./books/CuoreHeart爱的教育.pdf"},
-        // {"title": "简爱（英文版）.txt", "url": "./books/简爱（英文版）.txt"},
-        // {"title": "牛津书虫系列50本(英文版).txt", "url": "./books/牛津书虫系列50本(英文版).txt"},
-        // {"title": "格林童话英文版.txt", "url": "./books/格林童话英文版.txt"},
-        // {"title": "绿野仙踪(英文版).txt", "url": "./books/绿野仙踪(英文版).txt"},
-        // {"title": "哈利波特1-7英文版.txt", "url": "./books/哈利波特1-7英文版.txt"}
+         {"title": "一碗清汤芥麦面.pdf", "url": "./books/一碗清汤芥麦面.pdf"},
+         {"title": "佐贺的超级阿嬷.pdf", "url": "./books/佐贺的超级阿嬷.pdf"},
+         {"title": "解忧杂货铺.txt", "url": "./books/解忧杂货铺.txt"},
+         {"title": "假如给我三天光明.txt", "url": "./books/假如给我三天光明.txt"},
+         {"title": "在困难的日子里.txt", "url": "./books/在困难的日子里.txt"},
+         {"title": "把梦留住.txt", "url": "./books/把梦留住.txt"},
+         {"title": "童年(高尔基).txt", "url": "./books/童年(高尔基).txt"},
+         {"title": "草房子.pdf", "url": "./books/草房子.pdf"},
+         {"title": "小桔灯.txt", "url": "./books/小桔灯.txt"},
+         {"title": "路遥文集.txt", "url": "./books/路遥文集.txt"},
+         {"title": "平凡的世界.txt", "url": "./books/平凡的世界.txt"},
+         {"title": "人生.txt", "url": "./books/人生.txt"},
+         {"title": "普罗旺斯的一年.txt", "url": "./books/普罗旺斯的一年.txt"},
+         {"title": "重返普罗旺斯.txt", "url": "./books/重返普罗旺斯.txt"},
+         {"title": "金盒子.txt", "url": "./books/金盒子.txt"},
+         {"title": "天蓝色的彼岸.txt", "url": "./books/天蓝色的彼岸.txt"},
+         {"title": "青铜葵花.txt", "url": "./books/青铜葵花.txt"},
+         {"title": "海底两万里.txt", "url": "./books/海底两万里.txt"},
+         {"title": "鲁滨逊漂流记.txt", "url": "./books/鲁滨逊漂流记.txt"},
+         {"title": "狼图腾.txt", "url": "./books/狼图腾.txt"},
+         {"title": "西游记.txt", "url": "./books/西游记.txt"},
+         {"title": "guaimomotou.pdf", "url": "./books/guaimomotou.pdf"},
+         {"title": "CuoreHeart爱的教育.pdf", "url": "./books/CuoreHeart爱的教育.pdf"},
+         {"title": "简爱（英文版）.txt", "url": "./books/简爱（英文版）.txt"},
+         {"title": "牛津书虫系列50本(英文版).txt", "url": "./books/牛津书虫系列50本(英文版).txt"},
+         {"title": "格林童话英文版.txt", "url": "./books/格林童话英文版.txt"},
+         {"title": "绿野仙踪(英文版).txt", "url": "./books/绿野仙踪(英文版).txt"},
+         {"title": "哈利波特1-7英文版.txt", "url": "./books/哈利波特1-7英文版.txt"}
     ];
 
     function parseResult(){
@@ -81,11 +81,12 @@
 
 <script type="text/javascript" src="./js/getrequest.js"></script>
 <script type="text/javascript">
-    getRequest("https://divaid.github.io/htmlminifuncs/jsondata/books", "", function(res){
-        // console.log(JSON.parse(res).data)
-        data = JSON.parse(res).data;
-        parseResult()
-    })
+//     getRequest("https://divaid.github.io/htmlminifuncs/jsondata/books", "", function(res){
+//         // console.log(JSON.parse(res).data)
+//         data = JSON.parse(res).data;
+//         parseResult()
+//     })
+    parseResult();
 </script>
 
 </body>
