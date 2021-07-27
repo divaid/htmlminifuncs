@@ -3,107 +3,107 @@
 	"data": [{
 		"title": "菊次郎的夏天",
 		"url": "/htmlminifuncs/musics/菊次郎的夏天.mp3",
-		"duration":293,
-		"singer":"宗次郎",
-		"size":"4.7MB",
-		"id":0
+		"duration": 293,
+		"singer": "宗次郎",
+		"size": "4.7MB",
+		"id": 0
 	}, {
 		"title": "儿时的夏日",
 		"url": "/htmlminifuncs/musics/儿时的夏日.mp3",
-		"duration":273,
-		"singer":"儿时的夏日",
-		"size":"4.4MB",
-		"id":1
+		"duration": 273,
+		"singer": "儿时的夏日",
+		"size": "4.4MB",
+		"id": 1
 	}, {
 		"title": "故宫的记忆",
 		"url": "/htmlminifuncs/musics/故宫的记忆.mp3",
-		"duration":266,
-		"singer":"故宫的记忆",
-		"size":"4.3MB",
-		"id":2
+		"duration": 266,
+		"singer": "故宫的记忆",
+		"size": "4.3MB",
+		"id": 2
 	}, {
 		"title": "秋天里的深蓝",
 		"url": "/htmlminifuncs/musics/秋天里的深蓝.mp3",
-		"duration":305,
-		"singer":"秋天里的深蓝",
-		"size":"4.9MB",
-		"id":3
+		"duration": 305,
+		"singer": "秋天里的深蓝",
+		"size": "4.9MB",
+		"id": 3
 	}, {
 		"title": "爱的华尔兹",
 		"url": "/htmlminifuncs/musics/俞灏明-爱的华尔兹.mp3",
-		"duration":276,
-		"singer":"俞灏明",
-		"size":"4.4MB",
-		"id":4
+		"duration": 276,
+		"singer": "俞灏明",
+		"size": "4.4MB",
+		"id": 4
 	}, {
 		"title": "月下独酌",
 		"url": "/htmlminifuncs/musics/SongTaste-月下独酌.mp3",
-		"duration":239,
-		"singer":"SongTaste",
-		"size":"3.8MB",
-		"id":5
+		"duration": 239,
+		"singer": "SongTaste",
+		"size": "3.8MB",
+		"id": 5
 	}, {
 		"title": "夜明",
 		"url": "/htmlminifuncs/musics/梅雨西子-夜明.mp3",
-		"duration":282,
-		"singer":"康夫",
-		"size":"4.5MB",
-		"id":6
+		"duration": 282,
+		"singer": "康夫",
+		"size": "4.5MB",
+		"id": 6
 	}, {
 		"title": "吹箫人去玉楼空",
 		"url": "/htmlminifuncs/musics/被遗弃的土豆-吹箫人去玉楼空.mp3",
-		"duration":89,
-		"singer":"被遗弃的土豆",
-		"size":"1.4MB",
-		"id":7
+		"duration": 89,
+		"singer": "被遗弃的土豆",
+		"size": "1.4MB",
+		"id": 7
 	}, {
 		"title": "晴天的周末在去学校的路上遇见喜欢的人",
 		"url": "/htmlminifuncs/musics/晴天的周末在去学校的路上遇见喜欢的人.mp3",
-		"duration":212,
-		"singer":"未知",
-		"size":"8.5MB",
-		"id":8
+		"duration": 212,
+		"singer": "未知",
+		"size": "8.5MB",
+		"id": 8
 	}, {
 		"title": "いつも何度でも",
 		"url": "/htmlminifuncs/musics/宗次郎-いつも何度でも.mp3",
-		"duration":198,
-		"singer":"宗次郎",
-		"size":"3.2MB",
-		"id":9
+		"duration": 198,
+		"singer": "宗次郎",
+		"size": "3.2MB",
+		"id": 9
 	}, {
 		"title": "LoveStory",
 		"url": "/htmlminifuncs/musics/ThePianoGuys-LoveStory.mp3",
-		"duration":483,
-		"singer":"ThePianoGuys",
-		"size":"7.7MB",
-		"id":10
+		"duration": 483,
+		"singer": "ThePianoGuys",
+		"size": "7.7MB",
+		"id": 10
 	}, {
 		"title": "盛夏与蝉鸣",
 		"url": "/htmlminifuncs/musics/Hea2t-盛夏与蝉鸣.mp3",
-		"duration":170,
-		"singer":"Hea2t",
-		"size":"6.9MB",
-		"id":11
+		"duration": 170,
+		"singer": "Hea2t",
+		"size": "6.9MB",
+		"id": 11
 	}, {
 		"title": "卡农(钢琴曲)",
 		"url": "/htmlminifuncs/musics/卡农(钢琴曲).mp3",
-		"duration":229,
-		"singer":"卡农",
-		"size":"3.7MB",
-		"id":12
+		"duration": 229,
+		"singer": "卡农",
+		"size": "3.7MB",
+		"id": 12
 	}, {
 		"title": "飞越彩虹",
 		"url": "/htmlminifuncs/musics/天箫吟唱-飞越彩虹.mp3",
-		"duration":302,
-		"singer":"天箫吟唱",
-		"size":"4.8MB",
-		"id":13
+		"duration": 302,
+		"singer": "天箫吟唱",
+		"size": "4.8MB",
+		"id": 13
 	}, {
-		"title": "故乡的原风景",music.png
+		"title": "故乡的原风景",
 		"url": "/htmlminifuncs/musics/宗次郎-故乡的原风景.mp3",
-		"duration":283,
-		"singer":"宗次郎",
-		"size":"4.6MB",
-		"id":14
+		"duration": 283,
+		"singer": "宗次郎",
+		"size": "4.6MB",
+		"id": 14
 	}]
 }
