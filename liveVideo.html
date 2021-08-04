@@ -269,7 +269,7 @@
         channelParent.getElementsByTagName("li")[position].classList.add("active")
     };
 
-
+    /*解析频道列表并添加item*/
     function parseResult(){
         player.src = channelList[position].url;
 
@@ -328,6 +328,7 @@
         }
     }
 
+    /*将频道列表悬浮显示在video右侧，适用于pc端*/
     function showChannelRight() {
         channelsRight = true;
 
@@ -340,9 +341,9 @@
         window.localStorage["channels_right"] = true;
 
         channelShowHideIcon.style.display = "inline-block";
-
     }
 
+    /*将频道列表显示在video底部，适用于手机平板*/
     function showChannelBottom() {
         channelParent.classList.remove("right_channels");
         channelParent.classList.add("bottom_channels");
@@ -360,27 +361,27 @@
 
 
     //判断手机横竖屏状态：
-    window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", function () {
-        if (window.orientation === 180 || window.orientation === 0) {
-            console.log('竖屏状态！' + screen.availHeight + " " + screen.availWidth);
-            player.style.height = screen.availWidth / 16 * 9 + "px";
-            // channelParent.style.height = screen.availWidth / 16 * 9 + "px";
+    // window.addEventListener("onorientationchange" in window ? "orientationchange" : "resize", function () {
+    //     if (window.orientation === 180 || window.orientation === 0) {
+    //         console.log('竖屏状态！' + screen.availHeight + " " + screen.availWidth);
+    //         player.style.height = screen.availWidth / 16 * 9 + "px";
+    //         // channelParent.style.height = screen.availWidth / 16 * 9 + "px";
 
-            channelShowHideIcon.style.top = (screen.availWidth / 16 * 9 - 60) / 2 + "px";
-
-
-            // quitFullScreen()
-        } else if (window.orientation === 90 || window.orientation === -90) {
-            console.log('横屏状态！' + screen.availHeight + " " + screen.availWidth);
-            player.style.height = screen.availHeight + "px";
-            // channelParent.style.height = screen.availHeight + "px";
-
-            channelShowHideIcon.style.top = (screen.availHeight - 60) / 2 + "px";
+    //         channelShowHideIcon.style.top = (screen.availWidth / 16 * 9 - 60) / 2 + "px";
 
 
-            // requestFullScreen(document.querySelector("#test"))
-        }
-    }, false);
+    //         // quitFullScreen()
+    //     } else if (window.orientation === 90 || window.orientation === -90) {
+    //         console.log('横屏状态！' + screen.availHeight + " " + screen.availWidth);
+    //         player.style.height = screen.availHeight + "px";
+    //         // channelParent.style.height = screen.availHeight + "px";
+
+    //         channelShowHideIcon.style.top = (screen.availHeight - 60) / 2 + "px";
+
+
+    //         // requestFullScreen(document.querySelector("#test"))
+    //     }
+    // }, false);
 
 
     function isMobile() {
