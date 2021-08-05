@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport"
+          content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+	<style>
+		.alert::placeholder{
+			color:red;
+		}
+		.normal_dot{
+			background-color: #aaaaaa;
+			float:right;border-radius: 30px;
+			padding:6px;
+			width:20px;
+			height:20px;
+			
+		}
+		.active{
+			background-color: #505050
+		}
+
+		.input{
+			height:48px;
+			width:95%;
+			border-radius:10px;
+			border:0px;
+			float:left;
+			font-size:18px;
+			outline-style: none;
+			margin-left: 5px;
+		}
+		.btn_parent{
+			width:130px;
+			float: right;
+			margin-top: -40px;
+			display: inline-block;
+		}
+
+		.notice{
+			margin-left:10%;
+			margin-top:15px;
+			display: block;
+			color:#828282;
+			font-size:10px
+		}
+
+
+
+
+		.short_cut{
+			display: block;
+		    width: 70px;
+		    height: 70px;
+		    background: #eeeeee;
+		    color: #666666;
+		    line-height: 70px;
+		    text-align: center;
+		    border-radius: 100px;
+		    font-size: 10px;
+		    float: left;
+		    margin-top: 20px;
+		}
+		.short_cut_press{
+			background-color: #dddddd;
+			color: #aaaaaa
+		}
+	</style>
+</head>
+<body style="padding-top: 30px">
+	<div style="width: 90%;margin:0 auto;height:50px;border-radius: 8px;border:3px solid #333333">
+
+		<input class="input" id="input" onkeydown="search(event)" placeholder="请输入内容"/>
+		<div class="btn_parent">
+			<image class="normal_dot" style="margin-right: 10px" src="search.png" id="btn_search"></image>
+			<image class="normal_dot" style="margin-right:25px;" src="clear.png" id="btn_clear"></image>
+		</div>
+				
+
+	</div>
+	
+
+	<text class="notice">*要搜索http开头的内容，在http前添加空格，否则会直接打开链接</text>
+
+
+	<div id="short_cut_parent" style="display: flex;margin-left: 20px;margin-right: 20px;flex-wrap: wrap;">
+		
+		<text class="short_cut" data-pressed="short_cut_press" id="cainiao">菜鸟教程</text>
+		<text class="short_cut" data-pressed="short_cut_press" id="csdn">csdn</text>
+		<text class="short_cut" data-pressed="short_cut_press" id="bilibili">哔哩哔哩</text>
+		<text class="short_cut" data-pressed="short_cut_press" id="sifou">思否</text>
+		<text class="short_cut" data-pressed="short_cut_press" id="w3school">w3school</text>
+		<text class="short_cut" data-pressed="short_cut_press" id="blogs">blogs</text>
+
+	</div>
+
+	<script type="text/javascript">
+		let input = document.getElementById("input")
+		input.focus();
+
+		function navSearch(){
+			if (input.value.length === 0) {
+				input.classList.add("alert");
+				return;
+			}
+			input.classList.remove("alert");
+	        	if (input.value.indexOf("http") == 0) {
+	        		window.location.href = input.value
+	        	} else {
+	        		//谷歌引擎：https://www.google.com/search?q=
+	        		//百度：https://www.baidu.com/s?wd=
+	        		//搜狗：https://www.sogou.com/web?query=
+	        		//360:https://www.so.com/s?q=
+	        		window.location.href = "https://cn.bing.com/search?q=" + input.value
+	        	}
+		}
+		function search(e) {
+	        var evt = window.event || e;
+	        if (evt.keyCode == 13) {
+	        	navSearch();
+	        //回车后要干的业务代码
+	        }
+    	}
+    	function clearContent(){
+    		input.value = ""
+    	}
+
+
+
+
+
+    	function startTouch(e){
+			let id = e.target.id
+			e.target.classList.add("active")
+			return false
+		}
+
+		function endTouch(e){
+			let id = e.target.id
+			e.target.classList.remove("active")
+			switch(id) {
+				case 'btn_clear':
+				clearContent()
+				break;
+				case 'btn_search':
+				navSearch()
+				break;
+			}
+			return false
+		}
+
+    	function isMobile() {
+	        let info = navigator.userAgent;
+	        let agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPod", "iPad"];
+	        for (let i = 0; i < agents.length; i++) {
+	            if (info.indexOf(agents[i]) >= 0) return true;
+	        }
+	        return false;
+    	}
+
+    	function setEventListener(){
+    		if (isMobile()) {
+    			document.getElementById("btn_search").ontouchstart = startTouch
+				document.getElementById("btn_search").ontouchend = endTouch
+				document.getElementById("btn_clear").ontouchstart = startTouch
+				document.getElementById("btn_clear").ontouchend = endTouch
+			
+    		} else {
+    			document.getElementById("btn_search").onmousedown = startTouch
+				document.getElementById("btn_search").onmouseup = endTouch
+				document.getElementById("btn_clear").onmousedown = startTouch
+				document.getElementById("btn_clear").onmouseup = endTouch
+    		}
+    	}
+
+    	setEventListener();
+	</script>
+
+
+	<script type="text/javascript" src="https://divaid.github.io/htmlminifuncs/js/pressclick.js"></script>
+	<script type="text/javascript">
+		/*添加快捷方式*/ 
+		var short_cut_parent = document.getElementById("short_cut_parent");
+
+		var marginLeftRight = localStorage.short_cut_margin
+		// if (marginLeftRight === undefined) {
+			marginLeftRight = (screen.availWidth-70*4-40 - 18)/8;
+			localStorage.short_cut_margin = marginLeftRight;
+		// }
+
+
+		var listener = function(e, id) {
+	        switch(id) {
+	            case "cainiao":
+	            window.open("https://www.runoob.com/");
+	            break;
+	            case "csdn":
+	            window.open("https://www.csdn.net/nav/mobile");
+	            break;
+	            case "bilibili":
+	            window.open("https://search.bilibili.com/all?keyword=%E5%89%8D%E7%AB%AF");
+	            break;
+	            case "sifou":
+	            window.open("https://segmentfault.com/blogs");
+	            break;
+	            case "w3school":
+	            window.open("https://www.w3school.com.cn/");
+	            break;
+	            case "blogs":
+	            window.open("https://divaid.github.io/htmlminifuncs/blogs");
+	            break;
+	        }
+	    }
+
+		var short_cuts = short_cut_parent.getElementsByTagName("text")
+		for(var i = 0;i<short_cuts.length;++i) {
+			short_cuts[i].style.marginLeft = marginLeftRight+"px";
+			short_cuts[i].style.marginRight = marginLeftRight+"px";
+			addClickListener(short_cuts[i], listener)
+
+		}
+
+	</script>
+</body>
+</html>
